@@ -44,7 +44,7 @@ window.PRODUCTS = [
   },
   {
     id: 'claude-vpn-mcp', name: 'Claude VPN MCP', market: 'infra',
-    line: 'Give Claude an isolated browser that goes online from the country you choose, through your own WireGuard exit.',
+    line: 'Write "activate my location in California": Claude starts an isolated browser that goes online from there and verifies the exit.',
     runs: ['Claude', 'Open source'], url: 'https://monili-vlr.github.io/claude-vpn-mcp/', image: 'https://monili-vlr.github.io/claude-vpn-mcp/og.jpg', color: '#3FD0B0'
   }
 ];
