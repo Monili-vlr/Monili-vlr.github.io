@@ -4,144 +4,174 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MoniliAI</title>
-<meta name="description" content="MoniliAI is a software factory driven by AI agents. Free, interoperable tools that turn what you ask an AI into something that exists outside the screen.">
-<meta name="theme-color" content="#0B1326">
+<meta name="description" content="MoniliAI is a software factory driven by AI agents. You write a prompt, and something real comes out: a ring, a building, a protected document, a safe computer, a journey.">
+<meta name="theme-color" content="#08090D">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://monili-vlr.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="MoniliAI · From the conversation to a new market">
-<meta property="og:description" content="A software factory driven by AI agents. Products for ChatGPT and Claude.">
+<meta property="og:description" content="A software factory driven by AI agents. You write, something real comes out.">
 <meta property="og:url" content="https://monili-vlr.github.io/">
 <meta property="og:image" content="https://monili-vlr.github.io/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
-/* Layout: a factory floor. Hero thesis + the production line (models → skills → agents → software),
-   then the catalogue: one large linked tile per product, grouped by market. */
+/* Layout: a dark lab. The hero is a live stage where a prompt turns into the shape of a product;
+   every product card uses the same point-cloud engine and the same holographic palette. Single dark theme by design. */
 :root {
-  --bg: #EEF1F6; --surface: #FFFFFF; --fg: #0E1730; --mute: #55607A; --line: #CDD4E1; --accent: #2D47E6; --accent-ink: #FFFFFF;
+  --bg: #08090D; --bg2: #0D0F15; --surface: rgba(255,255,255,.035); --surface2: rgba(255,255,255,.06);
+  --line: rgba(255,255,255,.09); --fg: #EEEFF4; --mute: #9EA3B4; --dim: #6B7083;
+  --holo: linear-gradient(100deg, #5EEAD4 0%, #A5B4FC 34%, #F0ABFC 66%, #FDBA74 100%);
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Consolas, Menlo, monospace;
-  --max: 1200px; --r: 18px;
-  color-scheme: light;
+  --max: 1200px; --r: 22px;
+  color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #0B1326; --surface: #121C35; --fg: #EDF0F7; --mute: #9AA5BF; --line: #24314F; --accent: #8FA2FF; --accent-ink: #0B1326; color-scheme: dark } }
-:root[data-theme="dark"] { --bg: #0B1326; --surface: #121C35; --fg: #EDF0F7; --mute: #9AA5BF; --line: #24314F; --accent: #8FA2FF; --accent-ink: #0B1326; color-scheme: dark }
-
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 a { color: inherit; }
-img { max-width: 100%; display: block; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+:focus-visible { outline: 2px solid #A5B4FC; outline-offset: 3px; border-radius: 8px; }
 .wrap { max-width: var(--max); margin: 0 auto; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
-.skip { position: absolute; left: -999px; top: 8px; background: var(--accent); color: var(--accent-ink); padding: 8px 14px; border-radius: 8px; z-index: 50; }
+.skip { position: absolute; left: -999px; top: 8px; background: #fff; color: #000; padding: 8px 14px; border-radius: 8px; z-index: 60; }
 .skip:focus { left: 8px; }
-h1, h2, h3 { font-family: var(--display); margin: 0; letter-spacing: -.02em; text-wrap: balance; }
-.label { font: 500 12px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+h1, h2, h3 { font-family: var(--display); margin: 0; letter-spacing: -.025em; text-wrap: balance; }
+.holo { background: var(--holo); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200% 100%; animation: shift 9s ease-in-out infinite alternate; }
+@keyframes shift { to { background-position: 100% 0; } }
+.label { font: 500 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+
+/* ambient light */
+.aurora { position: fixed; inset: -20vmax; z-index: -1; pointer-events: none; filter: blur(70px); opacity: .5;
+  background: radial-gradient(28vmax 22vmax at 20% 15%, rgba(94,234,212,.20), transparent 70%), radial-gradient(30vmax 24vmax at 85% 10%, rgba(240,171,252,.16), transparent 70%), radial-gradient(34vmax 26vmax at 60% 90%, rgba(165,180,252,.14), transparent 70%); }
+@media (prefers-reduced-motion: no-preference) { .aurora { animation: drift 26s ease-in-out infinite alternate; } }
+@keyframes drift { to { transform: translate3d(3vmax, -2vmax, 0) rotate(6deg); } }
+.dots { position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px); background-size: 28px 28px; mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 80%); }
 
 /* header */
-header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
-.bar { display: flex; align-items: center; gap: 24px; height: 64px; }
-.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 20px var(--display); letter-spacing: -.01em; }
-.brand svg { width: 28px; height: 28px; }
-.bar nav { margin-left: auto; display: flex; gap: 22px; }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: rgba(8,9,13,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--bg); }
+.bar { display: flex; align-items: center; gap: 24px; height: 66px; }
+.brand { display: flex; align-items: center; gap: 11px; text-decoration: none; font: 700 21px var(--display); }
+.mark { width: 30px; height: 30px; border-radius: 9px; background: var(--holo); display: grid; place-items: center; box-shadow: 0 0 24px rgba(165,180,252,.35); }
+.mark svg { width: 18px; height: 18px; }
+.bar nav { margin-left: auto; display: flex; gap: 24px; }
 .bar nav a { text-decoration: none; font-weight: 600; font-size: 15px; color: var(--mute); }
 .bar nav a:hover { color: var(--fg); }
 
-/* hero */
-.hero { padding-block: 72px 56px; display: grid; grid-template-columns: 1.25fr .75fr; gap: 56px; align-items: center; }
-.hero h1 { font-size: clamp(44px, 7vw, 92px); line-height: .98; font-weight: 800; font-variation-settings: "opsz" 96; }
-.hero h1 em { font-style: normal; color: var(--accent); }
-.hero p { font-size: clamp(18px, 2vw, 21px); color: var(--mute); max-width: 36em; margin: 26px 0 0; }
-.hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-.btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 999px; font: 600 16px var(--body); text-decoration: none; border: 1px solid var(--line); transition: transform .15s, background .15s; }
+/* buttons */
+.btn { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 999px; font: 600 16px var(--body); text-decoration: none; transition: transform .15s; }
 .btn:hover { transform: translateY(-1px); }
-.btn.pri { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-.btn.sec { background: var(--surface); }
+.btn.pri { background: var(--fg); color: #0B0C11; }
+.btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+.btn.ghost:hover { border-color: rgba(255,255,255,.3); }
 
-/* production line */
-.line { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: step; }
-.line li { position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: center; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
-.line li::before { counter-increment: step; content: counter(step); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--bg); font: 600 15px var(--mono); color: var(--accent); }
-.line li + li::after { content: ""; position: absolute; left: 38px; top: -11px; width: 2px; height: 12px; background: var(--accent); }
-.line b { display: block; font: 700 17px var(--display); }
-.line span { color: var(--mute); font-size: 14.5px; }
-.line .tick { position: absolute; right: 14px; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--accent); opacity: .25; }
-@media (prefers-reduced-motion: no-preference) { .line .tick { animation: pulse 4s infinite; } .line li:nth-child(2) .tick { animation-delay: 1s; } .line li:nth-child(3) .tick { animation-delay: 2s; } .line li:nth-child(4) .tick { animation-delay: 3s; } }
-@keyframes pulse { 0%, 20% { opacity: 1; transform: scale(1.4); } 40%, 100% { opacity: .25; transform: none; } }
+/* hero */
+.hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; padding-block: 64px 40px; }
+.hero h1 { font-size: clamp(46px, 7vw, 96px); line-height: .96; font-weight: 800; font-variation-settings: "opsz" 96; }
+.hero p.lead { font-size: clamp(18px, 2vw, 21px); color: var(--mute); max-width: 33em; margin: 24px 0 0; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.stage { position: relative; aspect-ratio: 1 / 1; max-width: 100%; border-radius: 28px; background: radial-gradient(circle at 50% 45%, rgba(165,180,252,.10), transparent 62%), var(--bg2); border: 1px solid var(--line); overflow: hidden; }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.stage .say { position: absolute; left: 18px; right: 18px; top: 18px; display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 16px; background: rgba(8,9,13,.72); border: 1px solid var(--line); backdrop-filter: blur(8px); font-size: 15.5px; min-height: 50px; }
+.stage .say b { flex: none; font: 600 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: #0B0C11; background: var(--holo); padding: 4px 8px; border-radius: 6px; }
+.stage .say span::after { content: ""; display: inline-block; width: 2px; height: 1.05em; margin-left: 2px; vertical-align: -2px; background: #A5B4FC; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.stage .made { position: absolute; left: 18px; right: 18px; bottom: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.stage .made a { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; background: rgba(8,9,13,.72); border: 1px solid var(--line); text-decoration: none; font-weight: 600; backdrop-filter: blur(8px); }
+.stage .made a:hover { border-color: rgba(255,255,255,.35); }
+.stage .made a i { width: 9px; height: 9px; border-radius: 50%; }
+.pick { display: flex; gap: 6px; }
+.pick button { width: 10px; height: 10px; padding: 0; border-radius: 50%; border: 0; background: rgba(255,255,255,.22); cursor: pointer; }
+.pick button[aria-current="true"] { background: var(--fg); width: 24px; border-radius: 6px; }
 
-/* catalogue */
-section { padding-block: 64px; }
-.head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
-.head h2 { font-size: clamp(32px, 4.4vw, 52px); font-weight: 800; }
-.head p { color: var(--mute); max-width: 34em; margin: 8px 0 0; }
+/* prompt ticker */
+.ticker { border-block: 1px solid var(--line); overflow: hidden; padding-block: 14px; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.ticker .row { display: flex; gap: 40px; width: max-content; }
+@media (prefers-reduced-motion: no-preference) { .ticker .row { animation: tick 60s linear infinite; } }
+@keyframes tick { to { transform: translateX(-50%); } }
+.ticker span { white-space: nowrap; color: var(--mute); font-size: 15px; }
+.ticker span b { color: var(--fg); font-weight: 600; }
+.ticker span em { font-style: normal; font: 500 12px var(--mono); color: var(--dim); margin-left: 8px; }
+
+/* sections */
+section { padding-block: 80px; }
+.head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 30px; }
+.head h2 { font-size: clamp(34px, 4.6vw, 56px); font-weight: 800; margin-top: 10px; }
+.head p { color: var(--mute); max-width: 34em; margin: 10px 0 0; }
 .filters { display: flex; flex-wrap: wrap; gap: 8px; }
-.filters button { font: 600 14px var(--body); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 15px; cursor: pointer; }
-.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters button { font: 600 14px var(--body); color: var(--mute); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 15px; cursor: pointer; }
+.filters button[aria-pressed="true"] { color: #0B0C11; background: var(--fg); border-color: var(--fg); }
+
+/* product cards: one family */
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
-.prod { --c: var(--accent); display: flex; flex-direction: column; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; transition: border-color .2s, transform .2s, box-shadow .2s; }
-.prod:hover, .prod:focus-visible { border-color: var(--c); transform: translateY(-3px); box-shadow: 0 18px 50px -24px color-mix(in srgb, var(--c) 70%, transparent); }
-.prod .pic { position: relative; aspect-ratio: 1200 / 630; overflow: hidden; background: color-mix(in srgb, var(--c) 18%, var(--bg)); max-width: 100%; }
-.prod .pic img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-.prod:hover .pic img { transform: scale(1.04); }
-.prod .pic .ph { position: absolute; inset: 0; display: grid; place-items: center; font: 800 44px var(--display); color: var(--c); }
+.prod { position: relative; display: flex; flex-direction: column; text-decoration: none; border-radius: var(--r); background: var(--bg2); border: 1px solid var(--line); overflow: hidden; transition: transform .25s, border-color .25s; isolation: isolate; }
+.prod::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: var(--holo); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 2; }
+.prod:hover, .prod:focus-visible { transform: translateY(-4px); }
+.prod:hover::before, .prod:focus-visible::before { opacity: 1; }
+.prod .viz { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: radial-gradient(circle at 50% 55%, rgba(165,180,252,.09), transparent 65%), #0A0C11; border-bottom: 1px solid var(--line); }
+.prod .viz canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.prod .viz .q { position: absolute; left: 14px; bottom: 14px; max-width: calc(100% - 28px); padding: 7px 12px; border-radius: 12px 12px 12px 4px; background: rgba(8,9,13,.78); border: 1px solid var(--line); font-size: 14px; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; backdrop-filter: blur(6px); }
+.prod .viz .mk { position: absolute; left: 14px; top: 14px; display: flex; align-items: center; gap: 8px; }
+.prod .viz .mk i { width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 10px currentColor; }
 .prod .in { display: flex; flex-direction: column; gap: 10px; padding: 22px 24px 24px; flex: 1; min-width: 0; }
-.prod .mk { display: flex; align-items: center; gap: 8px; }
-.prod .mk i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
 .prod h3 { font-size: 30px; font-weight: 800; line-height: 1.05; }
 .prod p { margin: 0; color: var(--mute); }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chips span { font: 500 12px var(--mono); padding: 3px 9px; border-radius: 6px; border: 1px solid var(--line); color: var(--mute); }
 .go { margin-top: auto; padding-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border-top: 1px solid var(--line); }
-.go .url { font: 500 13px var(--mono); color: var(--mute); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-.go .visit { flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: var(--c); color: #0B1326; font: 700 15px var(--body); }
+.go .url { font: 500 13px var(--mono); color: var(--dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.go .visit { flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 17px; border-radius: 999px; background: var(--fg); color: #0B0C11; font: 700 15px var(--body); }
 .go .visit svg { width: 16px; height: 16px; transition: transform .2s; }
+.prod:hover .go .visit { background: var(--holo); }
 .prod:hover .go .visit svg { transform: translate(2px, -2px); }
-.add { display: grid; place-items: center; text-align: center; gap: 8px; padding: 32px; border: 2px dashed var(--line); border-radius: var(--r); color: var(--mute); min-height: 220px; }
+.add { display: grid; place-items: center; text-align: center; gap: 8px; padding: 32px; border: 1px dashed var(--line); border-radius: var(--r); color: var(--mute); min-height: 260px; }
 .add b { font: 700 22px var(--display); color: var(--fg); }
 
+/* factory line */
+.line { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; position: relative; }
+.line::before { content: ""; position: absolute; left: 6%; right: 6%; top: 29px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent); }
+.line::after { content: ""; position: absolute; top: 25px; left: 6%; width: 10px; height: 10px; border-radius: 50%; background: #fff; box-shadow: 0 0 18px #A5B4FC; }
+@media (prefers-reduced-motion: no-preference) { .line::after { animation: run 5s ease-in-out infinite; } }
+@keyframes run { to { left: 92%; } }
+.step { position: relative; padding-top: 64px; }
+.step::before { content: attr(data-n); position: absolute; top: 8px; left: 0; width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--bg2); border: 1px solid var(--line); font: 600 15px var(--mono); }
+.step h3 { font-size: 22px; }
+.step p { margin: 6px 0 0; color: var(--mute); font-size: 15.5px; }
+
 /* model */
-.model { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--surface); }
-.model div { padding: 28px; display: flex; flex-direction: column; gap: 6px; }
-.model div + div { border-left: 1px solid var(--line); }
-.model h3 { font-size: 24px; }
-.model p { margin: 0; color: var(--mute); }
-.principles { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 36px; }
-.principles p { margin: 0; color: var(--mute); max-width: 38em; }
+.model { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.layer { padding: 26px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--line); }
+.layer h3 { font-size: 24px; margin: 8px 0 6px; }
+.layer p { margin: 0; color: var(--mute); }
+.principles { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 34px; }
 .principles h3 { font-size: 22px; margin-bottom: 8px; }
+.principles p { margin: 0; color: var(--mute); }
 
 footer { border-top: 1px solid var(--line); padding-block: 40px 48px; color: var(--mute); font-size: 15px; }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; }
-footer a { color: var(--fg); }
 
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; padding-block: 48px 32px; }
-  .grid { grid-template-columns: 1fr; }
-  .model { grid-template-columns: 1fr; }
-  .model div + div { border-left: 0; border-top: 1px solid var(--line); }
-  .principles { grid-template-columns: 1fr; }
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; padding-block: 40px 24px; }
+  .grid, .model, .principles { grid-template-columns: 1fr; }
+  .line { grid-template-columns: 1fr 1fr; } .line::before, .line::after { display: none; }
   .bar nav { display: none; }
 }
 @media (max-width: 480px) {
   .wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-  .prod h3 { font-size: 26px; }
+  .line { grid-template-columns: 1fr; }
   .go .url { display: none; }
+  .stage .say { font-size: 14px; }
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .prod, .prod .pic img, .btn { transition: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .holo { animation: none; } .stage .say span::after { animation: none; } }
 </style>
 </head>
 <body>
+<div class="aurora" aria-hidden="true"></div><div class="dots" aria-hidden="true"></div>
 <a class="skip" href="#products">Skip to the products</a>
 <header class="top">
   <div class="wrap bar">
-    <a class="brand" href="#top" aria-label="MoniliAI, home">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="var(--accent)"/><path d="M9 22V11l7 7 7-7v11" fill="none" stroke="var(--accent-ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      MoniliAI
-    </a>
+    <a class="brand" href="#top" aria-label="MoniliAI, home"><span class="mark"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3.5 13.5V5l5.5 5.5L14.5 5v8.5" fill="none" stroke="#0B0C11" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>MoniliAI</a>
     <nav aria-label="Main"><a href="#products">Products</a><a href="#factory">The factory</a><a href="#model">Model</a><a href="dossier/">Dossier</a></nav>
   </div>
 </header>
@@ -150,42 +180,48 @@ footer a { color: var(--fg); }
   <div class="wrap hero">
     <div>
       <div class="label">Software factory · AI agents</div>
-      <h1 style="margin-top:18px">From the conversation to <em>a new market.</em></h1>
-      <p>MoniliAI builds free, interoperable tools that turn what you ask an AI into something that exists outside the screen: a journey with real timetables, a ring ready for casting, a buildable building, a protected document, a safe computer.</p>
-      <div class="cta">
-        <a class="btn pri" href="#products">See the products ↓</a>
-        <a class="btn sec" href="mailto:scrvlr80@gmail.com">Contact</a>
-      </div>
+      <h1 style="margin-top:18px">From the conversation to <span class="holo">a new market.</span></h1>
+      <p class="lead">You write a sentence to an AI. Something real comes out: a ring ready for casting, a buildable building, a protected document, a safe computer, a journey that works.</p>
+      <div class="cta"><a class="btn pri" href="#products">See what it makes ↓</a><a class="btn ghost" href="mailto:scrvlr80@gmail.com">Contact</a></div>
     </div>
-    <div id="factory" aria-labelledby="fl">
-      <div class="label" id="fl" style="margin-bottom:12px">How every product is made</div>
-      <ol class="line">
-        <li><div><b>Advanced models</b><span>design the procedures</span></div><i class="tick"></i></li>
-        <li><div><b>Skills</b><span>turn knowledge into reusable capabilities</span></div><i class="tick"></i></li>
-        <li><div><b>Agents</b><span>read the skills and coordinate the work</span></div><i class="tick"></i></li>
-        <li><div><b>Own software</b><span>runs and delivers verifiable results</span></div><i class="tick"></i></li>
-      </ol>
-      <p style="margin:14px 0 0;color:var(--mute);font-size:15px">No development department. I choose the problem, review the result and decide what ships.</p>
+    <div class="stage" id="stage" aria-label="Live example: a prompt becomes the shape of a product">
+      <canvas id="hero" aria-hidden="true"></canvas>
+      <div class="say"><b>You write</b><span id="say"></span></div>
+      <div class="made"><a id="madeby" href="#products"><i></i><span>Made by …</span> ↗</a><div class="pick" id="pick" role="group" aria-label="Choose an example"></div></div>
     </div>
   </div>
+
+  <div class="ticker" aria-label="Examples of prompts"><div class="row" id="ticker"></div></div>
 
   <section id="products" aria-labelledby="ph">
     <div class="wrap">
       <div class="head">
-        <div><div class="label">Catalogue</div><h2 id="ph" style="margin-top:10px">Products</h2><p>Each card opens the product's own site, with its video, functions, limits and privacy.</p></div>
+        <div><div class="label">Catalogue</div><h2 id="ph">One sentence in. <span class="holo">Something real out.</span></h2><p>Each card opens the product's own site, with its video, functions, limits and privacy.</p></div>
         <div class="filters" id="filters" role="group" aria-label="Filter by market"></div>
       </div>
       <div class="grid" id="grid"></div>
     </div>
   </section>
 
+  <section id="factory" aria-labelledby="fh">
+    <div class="wrap">
+      <div class="head"><div><div class="label">The factory</div><h2 id="fh">No development department.</h2><p>A structure of AI agents designs, writes, tests and maintains the software. I choose the problem, review the result and decide what ships.</p></div></div>
+      <div class="line">
+        <div class="step" data-n="1"><h3>Advanced models</h3><p>design the procedures</p></div>
+        <div class="step" data-n="2"><h3>Skills</h3><p>turn knowledge into reusable capabilities</p></div>
+        <div class="step" data-n="3"><h3>Agents</h3><p>read the skills and coordinate the work</p></div>
+        <div class="step" data-n="4"><h3>Own software</h3><p>runs and delivers verifiable results</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="model" aria-labelledby="mh">
     <div class="wrap">
-      <div class="head"><div><div class="label">Business model</div><h2 id="mh" style="margin-top:10px">One model, three layers</h2><p>The app is free. The value is created outside the screen.</p></div></div>
+      <div class="head"><div><div class="label">Business model</div><h2 id="mh">The app is free. <span class="holo">The value is outside the screen.</span></h2></div></div>
       <div class="model">
-        <div><span class="label">Distribution</span><h3>AI ecosystems</h3><p>The app stores of OpenAI and Anthropic.</p></div>
-        <div><span class="label">Own capacity</span><h3>Agents and skills</h3><p>Specialised software, built and maintained by agents.</p></div>
-        <div><span class="label">Real economy</span><h3>Products and services</h3><p>Manufacturing, sales and licences.</p></div>
+        <div class="layer"><span class="label">Distribution</span><h3>AI ecosystems</h3><p>The app stores of OpenAI and Anthropic.</p></div>
+        <div class="layer"><span class="label">Own capacity</span><h3>Agents and skills</h3><p>Specialised software, built and maintained by agents.</p></div>
+        <div class="layer"><span class="label">Real economy</span><h3>Products and services</h3><p>Manufacturing, sales and licences.</p></div>
       </div>
       <div class="principles">
         <div><h3>Open technology</h3><p>The software is free, interoperable and works with different models. It is built on the open MCP standard, uses open data and favours open-weight models.</p></div>
@@ -195,38 +231,57 @@ footer a { color: var(--fg); }
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <span>© 2026 MoniliAI · Valerio Scorretti, founder</span>
-    <span><a href="mailto:scrvlr80@gmail.com">scrvlr80@gmail.com</a> · <a href="dossier/">Dossier (ES)</a></span>
-  </div>
-</footer>
+<footer><div class="wrap"><span>© 2026 MoniliAI · Valerio Scorretti, founder</span><span><a href="mailto:scrvlr80@gmail.com">scrvlr80@gmail.com</a> · <a href="dossier/">Dossier (ES)</a></span></div></footer>
 
 <script src="products.js"></script>
+<script src="fx.js"></script>
 <script>
 (() => {
-  const P = window.PRODUCTS || [], M = window.MARKETS || {};
-  const grid = document.getElementById('grid'), fl = document.getElementById('filters');
+  const P = window.PRODUCTS || [], M = window.MARKETS || {}, FX = window.MFX;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  const card = p => {
-    const host = p.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
-    return `<a class="prod" id="${esc(p.id)}" href="${esc(p.url)}" style="--c:${esc(p.color)}" data-m="${esc(p.market)}" aria-label="${esc(p.name)}: visit the site">
-      <div class="pic"><span class="ph" aria-hidden="true">${esc(p.name)}</span><img src="${esc(p.image)}" alt="" loading="lazy" onerror="this.remove()"></div>
-      <div class="in">
-        <div class="mk"><i></i><span class="label">${esc(M[p.market] || p.market)}</span></div>
-        <h3>${esc(p.name)}</h3>
-        <p>${esc(p.line)}</p>
+
+  /* hero: a prompt is typed, the points re-form into the product that answers it */
+  const hero = FX.mount(document.getElementById('hero'), { shape: P[0] ? P[0].shape : 'orb', speed: .3, scale: .225 });
+  const say = document.getElementById('say'), made = document.getElementById('madeby'), pick = document.getElementById('pick');
+  pick.innerHTML = P.map((p, i) => `<button type="button" aria-label="Show ${esc(p.name)}" data-i="${i}"></button>`).join('');
+  let cur = -1, timer = 0, typing = 0;
+  function show(i) {
+    cur = (i + P.length) % P.length; const p = P[cur];
+    pick.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur));
+    made.href = p.url; made.querySelector('i').style.background = p.color; made.querySelector('span').textContent = 'Made by ' + p.name;
+    hero.morph(p.shape || 'orb', performance.now());
+    clearInterval(typing); let n = 0; say.textContent = '';
+    if (FX.reduce) say.textContent = p.prompt; else typing = setInterval(() => { say.textContent = p.prompt.slice(0, ++n); if (n >= p.prompt.length) clearInterval(typing); }, 32);
+    clearTimeout(timer); timer = setTimeout(() => show(cur + 1), 6000);
+  }
+  pick.addEventListener('click', e => { const b = e.target.closest('button'); if (b) show(+b.dataset.i); });
+  show(0);
+
+  /* ticker of real example prompts */
+  const items = P.map(p => `<span>“<b>${esc(p.prompt)}</b>”<em>${esc(p.name)}</em></span>`).join('');
+  document.getElementById('ticker').innerHTML = items + items;
+
+  /* catalogue: same engine, same palette, one family */
+  const grid = document.getElementById('grid'), fl = document.getElementById('filters');
+  const card = p => `<a class="prod" id="${esc(p.id)}" href="${esc(p.url)}" data-m="${esc(p.market)}" aria-label="${esc(p.name)}: visit the site">
+      <div class="viz"><canvas data-shape="${esc(p.shape || 'orb')}" data-color="${esc(p.color || '')}" aria-hidden="true"></canvas>
+        <div class="mk"><i style="background:${esc(p.color)};color:${esc(p.color)}"></i><span class="label">${esc(M[p.market] || p.market)}</span></div>
+        <div class="q">“${esc(p.prompt || '')}”</div></div>
+      <div class="in"><h3>${esc(p.name)}</h3><p>${esc(p.line)}</p>
         <div class="chips">${(p.runs || []).map(r => `<span>${esc(r)}</span>`).join('')}</div>
-        <div class="go"><span class="url">${esc(host)}</span><span class="visit">Visit site ${arrow}</span></div>
-      </div></a>`;
-  };
+        <div class="go"><span class="url">${esc(p.url.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</span><span class="visit">Visit site ${arrow}</span></div></div></a>`;
   const used = Object.keys(M).filter(k => P.some(p => p.market === k));
   fl.innerHTML = [['all', 'All'], ...used.map(k => [k, M[k]])].map(([k, t], i) => `<button type="button" data-k="${k}" aria-pressed="${i === 0}">${esc(t)}</button>`).join('');
-  const render = k => {
+  function render(k) {
     const list = P.filter(p => k === 'all' || p.market === k);
     grid.innerHTML = list.map(card).join('') + (list.length % 2 && k === 'all' ? '<div class="add"><b>More products in the factory</b><span>New tools are added here as they ship.</span></div>' : '');
-  };
+    grid.querySelectorAll('.prod').forEach(a => {
+      const c = a.querySelector('canvas'); const st = FX.mount(c, { shape: c.dataset.shape, accent: c.dataset.color, speed: .22, scale: .215 });
+      a.addEventListener('mouseenter', () => { st.st.hover = 1; }); a.addEventListener('mouseleave', () => { st.st.hover = 0; });
+      a.addEventListener('focus', () => { st.st.hover = 1; }); a.addEventListener('blur', () => { st.st.hover = 0; });
+    });
+  }
   fl.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; fl.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); render(b.dataset.k); });
   render('all');
 })();
