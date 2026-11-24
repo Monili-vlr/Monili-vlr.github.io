@@ -33,6 +33,6 @@ window.PRODUCTS = [
     line: 'Your city, live, inside ChatGPT: real timetables, strikes, accessible routes and day plans that work.',
     prompt: 'Plan my day in Barcelona, avoiding the metro strike.', runs: ['ChatGPT'], url: 'https://monili-vlr.github.io/vertex/' },
   { id: 'claude-vpn-mcp', name: 'Claude VPN MCP', market: 'infra', shape: 'globe', color: '#3FD0B0',
-    line: 'Write "activate my location in California": Claude starts an isolated browser that goes online from there and verifies the exit.',
-    prompt: 'Activate my location in California.', runs: ['Claude', 'Open source'], url: 'https://monili-vlr.github.io/claude-vpn-mcp/' }
+    line: 'Write "activate my location in California": Claude opens a browser that goes online from there through Tor. Free, nothing else to install.',
+    prompt: 'Activate my location in California.', runs: ['Claude', 'Tor', 'Free'], url: 'https://monili-vlr.github.io/claude-vpn-mcp/' }
 ];
