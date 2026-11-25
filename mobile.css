@@ -1,0 +1,28 @@
+/* MoniliAI phone layout, shared by every MoniliAI site. Nothing here changes the desktop layout.
+   .mai-swipe        a long group of cards becomes one row you swipe sideways (the next card peeks in)
+   .mai-wrap         an invisible wrapper added around cards that had no container of their own
+   .mai-swipe-hint   "Swipe to see more", shown only on phones
+   table.mai-cards   each table row becomes a small card; cells show their column name (data-label) */
+div.mai-swipe.mai-wrap { display: contents; }
+.mai-swipe-hint { display: none; }
+
+@media (max-width: 700px) {
+  .mai-swipe {
+    display: flex !important; flex-wrap: nowrap !important; grid-template-columns: none !important;
+    gap: 14px !important; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; padding: 4px 2px 14px !important; margin-top: 0 !important; scrollbar-width: thin;
+  }
+  .mai-swipe > * { flex: 0 0 86% !important; max-width: 86% !important; min-width: 0 !important; scroll-snap-align: start; margin: 0 !important; }
+  .mai-swipe > * img { max-width: 100%; height: auto; }
+  .mai-swipe-hint { display: flex; align-items: center; gap: 6px; margin: 14px 0 4px; font-size: 13px; font-weight: 600; letter-spacing: .02em; opacity: .62; }
+  .mai-swipe-hint::after { content: "→"; font-size: 15px; }
+
+  table.mai-cards, table.mai-cards tbody, table.mai-cards tr, table.mai-cards td, table.mai-cards th { display: block; width: 100% !important; box-sizing: border-box; }
+  table.mai-cards { min-width: 0 !important; border: 0 !important; }
+  table.mai-cards thead { display: none; }
+  table.mai-cards tr { margin: 0 0 10px; padding: 10px 12px; border: 1px solid rgba(128,128,140,.32); border-radius: 12px; }
+  table.mai-cards td, table.mai-cards th { border: 0 !important; padding: 3px 0 !important; text-align: left !important; white-space: normal !important; }
+  table.mai-cards td[data-label]::before { content: attr(data-label); display: block; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; opacity: .55; margin-top: 4px; }
+  table.mai-cards td:first-child { font-weight: 700; }
+  table.mai-cards td:first-child::before { display: none; }
+}
