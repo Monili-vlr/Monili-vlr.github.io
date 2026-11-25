@@ -177,6 +177,16 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .pnote h3 { font-size: 16px; color: var(--fg); margin-bottom: 6px; }
 .pnote p { margin: 8px 0 0; }
 @media (max-width: 900px) { .contact { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+
+/* performance: the effects above stay, but nothing forces a full repaint on every frame */
+.aurora { animation: none !important; will-change: auto; }                       /* the soft background is drawn once */
+.stage .say, .stage .made a, .prod .viz .q { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.stage .say, .stage .made a { background: rgba(8,9,13,.84); } .prod .viz .q { background: rgba(8,9,13,.86); }
+.holo { animation: none; background-position: 30% 0; } h1 .holo { animation: shift 9s ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: no-preference) { .line::after { left: 6%; right: auto; animation: run2 5s ease-in-out infinite; } }
+.line { container-type: inline-size; }
+@keyframes run2 { to { transform: translateX(86cqw); } }
+@media (prefers-reduced-motion: reduce) { h1 .holo { animation: none; } }
 </style>
 </head>
 <body>
