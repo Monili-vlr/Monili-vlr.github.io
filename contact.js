@@ -80,7 +80,7 @@ dialog.maic-dlg::backdrop{background:rgba(8,10,20,.62);backdrop-filter:blur(3px)
       msg.className = 'maic-msg'; msg.textContent = '';
       const email = form.email.value.trim(), text = form.message.value.trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.className = 'maic-msg err'; msg.textContent = 'Please write a valid email, so we can answer you.'; form.email.focus(); return; }
-      if (text.length < 5) { msg.className = 'maic-msg err'; msg.textContent = 'Please write a message.'; form.message.focus(); return; }
+      if (!text) { msg.className = 'maic-msg err'; msg.textContent = 'Please write a message.'; form.message.focus(); return; }
       if (form._honey.value) return; // a bot filled the hidden field
       btn.disabled = true; btn.firstChild.textContent = 'Sending… ';
       try {
@@ -93,7 +93,11 @@ dialog.maic-dlg::backdrop{background:rgba(8,10,20,.62);backdrop-filter:blur(3px)
         if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || 'not sent');
         form.replaceWith(Object.assign(document.createElement('div'), { className: 'maic-done', innerHTML: '<b>Thank you, message sent.</b><span>We will answer at ' + esc(email) + '.</span>' }));
       } catch (err) {
-        msg.className = 'maic-msg err'; msg.textContent = 'The message could not be sent right now. Please try again in a moment.';
+        const why = String(err && err.message || '');
+        msg.className = 'maic-msg err';
+        msg.textContent = /activat/i.test(why)
+          ? 'The contact box is waiting for its one-time activation by MoniliAI. Please try again later.'
+          : 'The message could not be sent right now' + (why && why !== 'not sent' && !/fetch/i.test(why) ? ' (' + why.slice(0, 120) + ')' : '') + '. Please try again in a moment.';
         btn.disabled = false; btn.firstChild.textContent = 'Send ';
       }
     });
