@@ -113,7 +113,7 @@ dialog.maic-dlg::backdrop{background:rgba(8,10,20,.62);backdrop-filter:blur(3px)
   }
 
   function mount() {
-    document.querySelectorAll('[data-mai-contact-inline]').forEach(el => { if (!el.firstChild) el.appendChild(card({ topic: el.dataset.topic, light: 'light' in el.dataset })); });
+    document.querySelectorAll('[data-mai-contact-inline]').forEach(el => { if (!el.querySelector('.maic')) el.replaceChildren(card({ topic: el.dataset.topic, light: 'light' in el.dataset })); });
   }
   document.addEventListener('click', e => {
     const a = e.target.closest && e.target.closest('[data-mai-contact]');
@@ -121,5 +121,5 @@ dialog.maic-dlg::backdrop{background:rgba(8,10,20,.62);backdrop-filter:blur(3px)
     e.preventDefault(); open({ topic: a.dataset.maiContact || 'MoniliAI' });
   });
   window.MAIContact = { open, mount };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
+  mount(); if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
 })();

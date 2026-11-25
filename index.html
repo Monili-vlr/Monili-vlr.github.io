@@ -172,6 +172,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .holo { animation: none; } .stage .say span::after { animation: none; } }
 .contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: start; }
 .contact .clead { color: var(--mute); font-size: 18px; max-width: 30em; margin: 18px 0 0; }
+.cwait { min-height: 380px; display: grid; place-items: center; margin: 0; border-radius: 20px; border: 1px dashed var(--line); color: var(--mute); }
 .pnote { margin-top: 32px; padding: 20px 22px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); font-size: 14px; color: var(--mute); }
 .pnote h3 { font-size: 16px; color: var(--fg); margin-bottom: 6px; }
 .pnote p { margin: 8px 0 0; }
@@ -254,7 +255,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <p>We keep messages as long as needed for your request, and no longer than 24 months after the last contact. You can ask for access, correction or deletion, or object, by writing here; you can also complain to your data protection authority. Controller: Valerio Scorretti, founder of MoniliAI.</p>
         </div>
       </div>
-      <div data-mai-contact-inline data-topic="MoniliAI" data-light></div>
+      <div data-mai-contact-inline data-topic="MoniliAI" data-light><p class="cwait">Loading the contact form…</p></div>
+      <script src="contact.js"></script>
     </div>
   </section>
 </main>
@@ -314,6 +316,5 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   render('all');
 })();
 </script>
-<script src="contact.js" defer></script>
 </body>
 </html>
