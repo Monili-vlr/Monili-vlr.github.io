@@ -52,6 +52,14 @@
   const PAL = [[94, 234, 212], [165, 180, 252], [240, 171, 252], [253, 186, 116]];
   const holo = (t) => { t = ((t % 1) + 1) % 1 * PAL.length; const i = Math.floor(t), f = t - i, a = PAL[i], b = PAL[(i + 1) % PAL.length];
     return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f]; };
+  // colours are computed once: 64 hues x 8 transparencies, so a frame allocates no strings
+  const HUES = 64, ALPHAS = 8;
+  const COL = Array.from({ length: HUES }, (_, h) => { const c = holo(h / HUES); return Array.from({ length: ALPHAS }, (_, a) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${(.25 + (a / (ALPHAS - 1)) * .7).toFixed(2)})`); });
+
+  /* Quality adapts to the computer: a slow or busy machine gets fewer points, a lower resolution
+     and fewer frames, so the page itself always stays responsive. */
+  const lowEnd = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+  const Q = { step: lowEnd ? 2 : 1, dprMax: lowEnd ? 1 : 1.5, frameMs: lowEnd ? 42 : 33 };
 
   /* A stage renders one shape (or a morph between shapes) on a canvas. */
   function Stage(canvas, opts = {}) {
@@ -59,7 +67,7 @@
     const st = { name: opts.shape || 'orb', from: shape(opts.shape || 'orb'), to: shape(opts.shape || 'orb'), k: 1, t0: 0, rot: rnd() * TAU, speed: opts.speed || .25, accent: opts.accent || null, scale: opts.scale || .38, hover: 0 };
     const jitter = Array.from({ length: N }, () => [rnd() - .5, rnd() - .5, rnd() - .5]);
     let w = 0, h = 0, dpr = 1;
-    const size = () => { dpr = Math.min(2, window.devicePixelRatio || 1); const r = canvas.getBoundingClientRect(); w = r.width; h = r.height; canvas.width = Math.max(1, w * dpr); canvas.height = Math.max(1, h * dpr); };
+    const size = () => { dpr = Math.min(Q.dprMax, window.devicePixelRatio || 1); const r = canvas.getBoundingClientRect(); w = r.width; h = r.height; canvas.width = Math.max(1, w * dpr); canvas.height = Math.max(1, h * dpr); };
     size();
     const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
     function draw(now, dt) {
@@ -71,7 +79,7 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
       const S = Math.min(w, h) * st.scale * 2.1, cx = w / 2, cyy = h / 2;
       const P = [];
-      for (let i = 0; i < N; i++) {
+      for (let i = 0; i < N; i += Q.step) {
         const a = st.from[i], b = st.to[i], j = jitter[i];
         const sc = Math.sin(Math.PI * e) * .35; // points scatter mid-morph, like a thought re-forming
         let x = a[0] + (b[0] - a[0]) * e + j[0] * sc, y = a[1] + (b[1] - a[1]) * e + j[1] * sc, z = a[2] + (b[2] - a[2]) * e + j[2] * sc;
@@ -80,9 +88,9 @@
       }
       P.sort((m, n) => n[2] - m[2]);
       for (const [x, y, z, i] of P) {
-        const depth = (1 - z) / 2, c = holo(i / N + st.rot * .05 + x / (w * 3));
-        const r = (.8 + depth * 1.7) * Math.max(.8, Math.min(1.3, S / 220));
-        ctx.fillStyle = `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${.25 + depth * .7})`;
+        const depth = Math.max(0, Math.min(1, (1 - z) / 2)), hue = (((i / N + st.rot * .05 + x / (w * 3)) % 1) + 1) % 1;
+        const r = (.8 + depth * 1.7) * Math.max(.8, Math.min(1.3, S / 220)) * (Q.step > 1 ? 1.25 : 1);
+        ctx.fillStyle = COL[(hue * HUES) | 0][(depth * (ALPHAS - 1) + .5) | 0];
         ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
       }
       if (st.accent) { // the product's own colour, only as one small beacon
@@ -101,17 +109,24 @@
   const stages = new Set(), visible = new WeakSet();
   const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)), { rootMargin: '80px' }) : null;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let last = performance.now();
+  let last = performance.now(), cost = 0, started = false;
   function loop(now) {
-    const dt = Math.min(.05, (now - last) / 1000); last = now;
-    for (const s of stages) if (!io || visible.has(s.canvas)) s.stage.draw(now, reduce ? 0 : dt);
     requestAnimationFrame(loop);
+    if (reduce || now - last < Q.frameMs) return;          // at most ~30 frames a second, none if motion is reduced
+    const dt = Math.min(.08, (now - last) / 1000); last = now;
+    const t = performance.now();
+    for (const s of stages) if (!io || visible.has(s.canvas)) s.stage.draw(now, dt);
+    cost = cost * .9 + (performance.now() - t) * .1;        // average drawing time per frame
+    if (cost > 9 && Q.step < 3) { Q.step++; Q.dprMax = 1; Q.frameMs = Math.min(66, Q.frameMs + 12); cost = 0; stages.forEach(s => s.stage.size()); }
   }
+  // animations start only after the page has painted its content
+  const go = () => { if (started) return; started = true; last = performance.now(); requestAnimationFrame(loop); };
+  if (document.readyState === 'complete') setTimeout(go, 200); else addEventListener('load', () => setTimeout(go, 200), { once: true });
+  setTimeout(go, 3000);
   function mount(canvas, opts) {
     const stage = Stage(canvas, opts); stages.add({ canvas, stage }); if (io) io.observe(canvas); else visible.add(canvas);
     stage.draw(performance.now(), 0); return stage;
   }
   addEventListener('resize', () => stages.forEach(s => s.stage.size()));
-  requestAnimationFrame(loop);
   window.MFX = { mount, shapes: Object.keys(SHAPES), reduce };
 })();
