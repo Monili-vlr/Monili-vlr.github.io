@@ -31,7 +31,7 @@
 .maic .maic-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
 .maic .maic-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:4px}
 .maic .maic-note{flex:1 1 220px;margin:0;font-size:12.5px;color:var(--c-mute)}
-.maic .maic-note a{color:inherit}
+.maic .maic-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 .maic button[type=submit]{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border:0;border-radius:999px;cursor:pointer;
   background:#14151C;color:#fff;font:700 15px system-ui,-apple-system,"Segoe UI",sans-serif;position:relative}
 .maic button[type=submit]::after{content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:var(--c-holo);
