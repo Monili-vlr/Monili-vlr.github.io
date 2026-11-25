@@ -3,12 +3,13 @@
    Shapes: ring, building, redact, shield, transit, globe, orb. Each returns N points in [-1, 1]^3. */
 (() => {
   'use strict';
-  const N = 520;
+  const N = 960;       // points per shape: dense lines, small points
+  const D = 2;         // line density: points along every segment and ring
   const TAU = Math.PI * 2;
   let seed = 7;
   const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   const fill = (pts) => { const out = []; for (let i = 0; i < N; i++) out.push(pts[i % pts.length]); return out; };
-  const seg = (a, b, n, out) => { for (let i = 0; i <= n; i++) { const t = i / n; out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]); } };
+  const seg = (a, b, n, out) => { n *= D; for (let i = 0; i <= n; i++) { const t = i / n; out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]); } };
   const box = (x0, x1, y0, y1, z0, z1, n, out) => {
     const P = [[x0, y0, z0], [x1, y0, z0], [x1, y1, z0], [x0, y1, z0], [x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]];
     [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]].forEach(([a, b]) => seg(P[a], P[b], n, out));
@@ -23,22 +24,22 @@
       seg([-.9, .62, .5], [.9, .62, .5], 18, o); return fill(o); },
     redact() { // ThirdBrain-PII: a page of text where names are blacked out
       const o = []; for (let row = 0; row < 11; row++) { const y = -.75 + row * .14; const len = .6 + .4 * Math.sin(row * 1.7) ** 2;
-        for (let i = 0; i < 26; i++) { const x = -.7 + (i / 25) * 1.4 * len; const red = (row % 3 === 1 && i > 5 && i < 14) || (row % 4 === 2 && i > 15 && i < 22);
+        for (let i = 0; i < 26 * D; i++) { const u = i / D; const x = -.7 + (u / 25) * 1.4 * len; const red = (row % 3 === 1 && u > 5 && u < 14) || (row % 4 === 2 && u > 15 && u < 22);
           o.push([x, y, 0]); if (red) { o.push([x, y + .03, .04]); o.push([x, y - .03, .04]); } } }
       seg([-.82, -.9, 0], [.82, -.9, 0], 20, o); seg([-.82, .9, 0], [.82, .9, 0], 20, o); seg([-.82, -.9, 0], [-.82, .9, 0], 20, o); seg([.82, -.9, 0], [.82, .9, 0], 20, o);
       return fill(o); },
     shield() { // T-Shadow: a shield with a scanning ring
-      const o = []; for (let i = 0; i < 160; i++) { const t = i / 159; const a = -Math.PI / 2 + t * Math.PI; const x = .75 * Math.cos(a), y = -.15 + .6 * Math.sin(a) * (a > 0 ? 1.5 : .45);
+      const o = []; for (let i = 0; i < 160 * D; i++) { const t = i / (160 * D - 1); const a = -Math.PI / 2 + t * Math.PI; const x = .75 * Math.cos(a), y = -.15 + .6 * Math.sin(a) * (a > 0 ? 1.5 : .45);
         o.push([x, -y, 0]); }
-      for (let k = 1; k <= 3; k++) for (let i = 0; i < 70; i++) { const a = i / 70 * TAU; o.push([Math.cos(a) * .22 * k, Math.sin(a) * .22 * k - .05, .02 * k]); }
+      for (let k = 1; k <= 3; k++) for (let i = 0; i < 70 * D; i++) { const a = i / (70 * D) * TAU; o.push([Math.cos(a) * .22 * k, Math.sin(a) * .22 * k - .05, .02 * k]); }
       seg([0, -.05, 0], [.55, -.6, 0], 24, o); return fill(o); },
     transit() { // Vertex: lines of a transit map with stations
       const o = []; const L = [[[-.9, -.5, 0], [-.3, -.5, 0], [.1, -.1, 0], [.9, -.1, 0]], [[-.6, .8, 0], [-.6, .1, 0], [0, -.5, 0], [0, -.9, 0]], [[-.9, .4, 0], [.3, .4, 0], [.7, .8, 0]]];
-      L.forEach(line => { for (let i = 0; i < line.length - 1; i++) seg(line[i], line[i + 1], 22, o); line.forEach(p => { for (let j = 0; j < 14; j++) { const a = j / 14 * TAU; o.push([p[0] + .06 * Math.cos(a), p[1] + .06 * Math.sin(a), .05]); } }); });
+      L.forEach(line => { for (let i = 0; i < line.length - 1; i++) seg(line[i], line[i + 1], 22, o); line.forEach(p => { for (let j = 0; j < 14 * D; j++) { const a = j / (14 * D) * TAU; o.push([p[0] + .06 * Math.cos(a), p[1] + .06 * Math.sin(a), .05]); } }); });
       return fill(o); },
     globe() { // Claude VPN MCP: a globe with an exit arc
-      const o = []; for (let i = 0; i < 380; i++) { const y = 1 - (i / 379) * 2, r = Math.sqrt(1 - y * y), a = i * 2.39996; o.push([r * Math.cos(a) * .78, y * .78, r * Math.sin(a) * .78]); }
-      for (let i = 0; i <= 60; i++) { const t = i / 60, a = -1.2 + t * 2.2; const h = .78 + .35 * Math.sin(t * Math.PI); o.push([Math.cos(a) * h, .35 + .15 * Math.sin(t * Math.PI), Math.sin(a) * h]); }
+      const o = []; for (let i = 0; i < 380 * D; i++) { const y = 1 - (i / (380 * D - 1)) * 2, r = Math.sqrt(1 - y * y), a = i * 2.39996; o.push([r * Math.cos(a) * .78, y * .78, r * Math.sin(a) * .78]); }
+      for (let i = 0; i <= 60 * D; i++) { const t = i / (60 * D), a = -1.2 + t * 2.2; const h = .78 + .35 * Math.sin(t * Math.PI); o.push([Math.cos(a) * h, .35 + .15 * Math.sin(t * Math.PI), Math.sin(a) * h]); }
       return fill(o); },
     orb() { const o = []; for (let i = 0; i < N; i++) { const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), a = i * 2.39996; o.push([r * Math.cos(a) * .8, y * .8, r * Math.sin(a) * .8]); } return o; }
   };
@@ -49,12 +50,12 @@
   const shape = (name) => cache[name] || (cache[name] = fill((SHAPES[name] || SHAPES.orb)()));
 
   // holographic palette: mint, periwinkle, pink, peach
-  const PAL = [[94, 234, 212], [165, 180, 252], [240, 171, 252], [253, 186, 116]];
+  const PAL = [[14, 159, 142], [79, 70, 229], [181, 39, 200], [226, 100, 26]];   // dark tones of the holographic palette, for white screens
   const holo = (t) => { t = ((t % 1) + 1) % 1 * PAL.length; const i = Math.floor(t), f = t - i, a = PAL[i], b = PAL[(i + 1) % PAL.length];
     return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f]; };
   // colours are computed once: 64 hues x 8 transparencies, so a frame allocates no strings
   const HUES = 64, ALPHAS = 8;
-  const COL = Array.from({ length: HUES }, (_, h) => { const c = holo(h / HUES); return Array.from({ length: ALPHAS }, (_, a) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${(.25 + (a / (ALPHAS - 1)) * .7).toFixed(2)})`); });
+  const COL = Array.from({ length: HUES }, (_, h) => { const c = holo(h / HUES); return Array.from({ length: ALPHAS }, (_, a) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${(.35 + (a / (ALPHAS - 1)) * .6).toFixed(2)})`); });
 
   /* Quality adapts to the computer: a slow or busy machine gets fewer points, a lower resolution
      and fewer frames, so the page itself always stays responsive. */
@@ -89,7 +90,7 @@
       P.sort((m, n) => n[2] - m[2]);
       for (const [x, y, z, i] of P) {
         const depth = Math.max(0, Math.min(1, (1 - z) / 2)), hue = (((i / N + st.rot * .05 + x / (w * 3)) % 1) + 1) % 1;
-        const r = (.8 + depth * 1.7) * Math.max(.8, Math.min(1.3, S / 220)) * (Q.step > 1 ? 1.25 : 1);
+        const r = (.45 + depth * .95) * Math.max(.8, Math.min(1.3, S / 220)) * (Q.step > 1 ? 1.3 : 1);
         ctx.fillStyle = COL[(hue * HUES) | 0][(depth * (ALPHAS - 1) + .5) | 0];
         ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
       }
@@ -127,6 +128,6 @@
     const stage = Stage(canvas, opts); stages.add({ canvas, stage }); if (io) io.observe(canvas); else visible.add(canvas);
     stage.draw(performance.now(), 0); return stage;
   }
-  addEventListener('resize', () => stages.forEach(s => s.stage.size()));
+  addEventListener('resize', () => stages.forEach(s => { s.stage.size(); s.stage.draw(performance.now(), 0); }));  // a resize clears a canvas: draw it again at once
   window.MFX = { mount, shapes: Object.keys(SHAPES), reduce };
 })();

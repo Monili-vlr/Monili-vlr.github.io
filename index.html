@@ -22,7 +22,7 @@
 :root {
   --bg: #EEEDF3; --bg2: #FFFFFF; --surface: rgba(255,255,255,.72); --surface2: rgba(255,255,255,.9);
   --line: rgba(22,20,40,.10); --fg: #15141D; --mute: #5C5A6D; --dim: #8C8A9C;
-  --screen: #0E1016; --on-screen: #EEEFF4; --on-screen-mute: #B4B7C6;
+  --screen: #FFFFFF; --on-screen: #15141D; --on-screen-mute: #6B6980;
   --holo: linear-gradient(100deg, #5EEAD4 0%, #A5B4FC 34%, #F0ABFC 66%, #FDBA74 100%);
   --holo-ink: linear-gradient(100deg, #0E9F8E 0%, #4F46E5 38%, #B527C8 68%, #E2641A 100%);
   --shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 24px 60px -34px rgba(40,30,90,.45);
@@ -187,6 +187,14 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .line { container-type: inline-size; }
 @keyframes run2 { to { transform: translateX(86cqw); } }
 @media (prefers-reduced-motion: reduce) { h1 .holo { animation: none; } }
+
+/* white screens: the animations draw dark holographic points on white; labels are light chips */
+.stage { background: radial-gradient(circle at 50% 45%, rgba(165,180,252,.16), transparent 62%), var(--screen) !important; box-shadow: 0 30px 70px -30px rgba(40,30,90,.28), 0 0 0 1px var(--line) !important; }
+.prod .viz { background: radial-gradient(circle at 50% 55%, rgba(165,180,252,.14), transparent 65%), var(--screen) !important; border-bottom: 1px solid var(--line); }
+.stage .say, .stage .made a, .prod .viz .q { background: rgba(255,255,255,.9) !important; border: 1px solid rgba(22,20,40,.12) !important; color: var(--on-screen) !important; box-shadow: 0 6px 18px -10px rgba(40,30,90,.35); }
+.stage .made a:hover { border-color: rgba(79,70,229,.45) !important; }
+.stage .say span::after { background: #4F46E5; }
+.stage .say span, .stage .made a, .prod .viz .q { color: var(--on-screen); }
 </style>
 </head>
 <body>
