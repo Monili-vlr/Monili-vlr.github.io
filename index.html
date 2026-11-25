@@ -170,6 +170,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .stage .say { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .holo { animation: none; } .stage .say span::after { animation: none; } }
+.contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: start; }
+.contact .clead { color: var(--mute); font-size: 18px; max-width: 30em; margin: 18px 0 0; }
+.pnote { margin-top: 32px; padding: 20px 22px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); font-size: 14px; color: var(--mute); }
+.pnote h3 { font-size: 16px; color: var(--fg); margin-bottom: 6px; }
+.pnote p { margin: 8px 0 0; }
+@media (max-width: 900px) { .contact { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
 </style>
 </head>
 <body>
@@ -178,7 +184,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 <header class="top">
   <div class="wrap bar">
     <a class="brand" href="#top" aria-label="MoniliAI, home"><span class="mark"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3.5 13.5V5l5.5 5.5L14.5 5v8.5" fill="none" stroke="#0B0C11" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>MoniliAI</a>
-    <nav aria-label="Main"><a href="#products">Products</a><a href="#factory">The factory</a><a href="#model">Model</a><a href="dossier/">Dossier</a></nav>
+    <nav aria-label="Main"><a href="#products">Products</a><a href="#factory">The factory</a><a href="#model">Model</a><a href="dossier/">Dossier</a><a href="#contact">Contact</a></nav>
   </div>
 </header>
 
@@ -188,7 +194,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="label">Software factory · AI agents</div>
       <h1 style="margin-top:18px">From the conversation to <span class="holo">a new market.</span></h1>
       <p class="lead">You write a sentence to an AI. Something real comes out: a ring ready for casting, a buildable building, a protected document, a safe computer, a journey that works.</p>
-      <div class="cta"><a class="btn pri" href="#products">See what it makes ↓</a><a class="btn ghost" href="mailto:scrvlr80@gmail.com">Contact</a></div>
+      <div class="cta"><a class="btn pri" href="#products">See what it makes ↓</a><a class="btn ghost" href="#contact">Contact</a></div>
     </div>
     <div class="stage" id="stage" aria-label="Live example: a prompt becomes the shape of a product">
       <canvas id="hero" aria-hidden="true"></canvas>
@@ -235,9 +241,25 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
     </div>
   </section>
+  <section id="contact" aria-labelledby="ch">
+    <div class="wrap contact">
+      <div>
+        <div class="label">Contact</div>
+        <h2 id="ch">Write to us. <span class="holo">A person answers.</span></h2>
+        <p class="clead">Access to a product, a partnership, a question about your data: one box for all of MoniliAI. We answer by email.</p>
+        <div class="pnote" id="privacy-contact">
+          <h3>How your message is handled</h3>
+          <p>The box sends your name, your email and your message. We use them only to answer you and to follow up your request (GDPR art. 6(1)(b), or legitimate interest for general questions).</p>
+          <p>Messages are delivered by FormSubmit (formsubmit.co) to our mailbox on Gmail (Google); both may process them in the United States under their own safeguards. Nothing is sold or used for marketing.</p>
+          <p>We keep messages as long as needed for your request, and no longer than 24 months after the last contact. You can ask for access, correction or deletion, or object, by writing here; you can also complain to your data protection authority. Controller: Valerio Scorretti, founder of MoniliAI.</p>
+        </div>
+      </div>
+      <div data-mai-contact-inline data-topic="MoniliAI" data-light></div>
+    </div>
+  </section>
 </main>
 
-<footer><div class="wrap"><span>© 2026 MoniliAI · Valerio Scorretti, founder</span><span><a href="mailto:scrvlr80@gmail.com">scrvlr80@gmail.com</a> · <a href="dossier/">Dossier (ES)</a></span></div></footer>
+<footer><div class="wrap"><span>© 2026 MoniliAI · Valerio Scorretti, founder</span><span><a href="#contact">Contact</a> · <a href="#privacy-contact">Privacy</a> · <a href="dossier/">Dossier (ES)</a></span></div></footer>
 
 <script src="products.js"></script>
 <script src="fx.js"></script>
@@ -292,5 +314,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   render('all');
 })();
 </script>
+<script src="contact.js" defer></script>
 </body>
 </html>
