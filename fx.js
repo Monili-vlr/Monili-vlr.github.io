@@ -1,4 +1,4 @@
-/* MoniliAI graphics: one point-cloud engine for every product shape.
+/* Monili VLR graphics: one point-cloud engine for every product shape.
    Same stroke, same holographic palette, same motion everywhere, so the previews read as one family.
    Shapes: ring, building, redact, shield, transit, globe, orb. Each returns N points in [-1, 1]^3. */
 (() => {

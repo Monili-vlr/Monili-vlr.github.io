@@ -1,9 +1,9 @@
-/* MoniliAI contact box, shared by every MoniliAI site.
+/* Monili VLR contact box, shared by every Monili VLR site.
    - Any link with data-mai-contact="Topic" opens the box over the page (the link still works
      without JavaScript: it points to https://monili-vlr.github.io/#contact).
    - <div data-mai-contact-inline data-topic="..."></div> shows the box inside the page.
    - window.MAIContact.open({ topic, message }) opens it from code.
-   Messages are delivered by FormSubmit (formsubmit.co) to the MoniliAI mailbox; the address is
+   Messages are delivered by FormSubmit (formsubmit.co) to the Monili VLR mailbox; the address is
    never written in the pages. To change where messages go, change ENDPOINT only. */
 (() => {
   'use strict';
@@ -54,11 +54,11 @@ dialog.maic-dlg::backdrop{background:rgba(8,10,20,.62);backdrop-filter:blur(3px)
   let n = 0;
 
   function card(opts = {}) {
-    const id = 'maic' + (++n), topic = opts.topic || 'MoniliAI';
+    const id = 'maic' + (++n), topic = opts.topic || 'Monili VLR';
     const box = document.createElement('div'); box.className = 'maic' + (opts.light ? ' maic-light' : '');
     box.innerHTML = `
       ${opts.closable ? '<button type="button" class="maic-x" aria-label="Close">&times;</button>' : ''}
-      <h2 id="${id}-h">Write to MoniliAI</h2>
+      <h2 id="${id}-h">Write to Monili VLR</h2>
       <p class="maic-sub">About: <b>${esc(topic)}</b>. We answer by email, usually within two working days.</p>
       <form novalidate aria-labelledby="${id}-h">
         <div class="maic-row">
@@ -87,7 +87,7 @@ dialog.maic-dlg::backdrop{background:rgba(8,10,20,.62);backdrop-filter:blur(3px)
         const r = await fetch(ENDPOINT, {
           method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({ name: form.name.value.trim() || '(no name)', email, message: text, topic, page: location.href,
-            _subject: `MoniliAI · ${topic}`, _replyto: email, _template: 'table', _captcha: 'false' })
+            _subject: `Monili VLR · ${topic}`, _replyto: email, _template: 'table', _captcha: 'false' })
         });
         const j = await r.json().catch(() => ({}));
         if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || 'not sent');
@@ -96,7 +96,7 @@ dialog.maic-dlg::backdrop{background:rgba(8,10,20,.62);backdrop-filter:blur(3px)
         const why = String(err && err.message || '');
         msg.className = 'maic-msg err';
         msg.textContent = /activat/i.test(why)
-          ? 'The contact box is waiting for its one-time activation by MoniliAI. Please try again later.'
+          ? 'The contact box is waiting for its one-time activation by Monili VLR. Please try again later.'
           : 'The message could not be sent right now' + (why && why !== 'not sent' && !/fetch/i.test(why) ? ' (' + why.slice(0, 120) + ')' : '') + '. Please try again in a moment.';
         btn.disabled = false; btn.firstChild.textContent = 'Send ';
       }
@@ -122,7 +122,7 @@ dialog.maic-dlg::backdrop{background:rgba(8,10,20,.62);backdrop-filter:blur(3px)
   document.addEventListener('click', e => {
     const a = e.target.closest && e.target.closest('[data-mai-contact]');
     if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button > 0) return;
-    e.preventDefault(); open({ topic: a.dataset.maiContact || 'MoniliAI' });
+    e.preventDefault(); open({ topic: a.dataset.maiContact || 'Monili VLR' });
   });
   window.MAIContact = { open, mount };
   mount(); if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);

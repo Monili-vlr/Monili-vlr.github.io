@@ -1,4 +1,4 @@
-/* MoniliAI product catalogue.
+/* Monili VLR product catalogue.
    To add a product, add one object to PRODUCTS. Nothing else needs to change.
    - id, name:  short id (page anchor) and the name shown
    - market:    one of the MARKETS keys (or add a new market)
