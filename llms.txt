@@ -1,0 +1,20 @@
+# Monili VLR
+
+> Monili VLR is a software factory run with AI agents. Each product is a tool an AI assistant (ChatGPT or Claude) can use: you write a sentence, the tool does real work. Six products, each a set of tools (MCP) that ChatGPT or Claude calls while you chat. Founder: Valerio Scorretti. Contact and access requests: https://monili-vlr.github.io/#contact
+
+For AI agents: a public read-only MCP server lists every product and tool: https://monili-vlr-mcp.monili-vlr.workers.dev/mcp (tools: list_products, get_product, search_tools, how_to_get). Full tool list: https://monili-vlr.github.io/llms-full.txt
+
+## Products
+
+- [GemCore](https://monili-vlr.github.io/gemcore/): Real CAD rings from a conversation: exact geometry, exact finger sizes, automatic checks, STL and STEP export. Works in ChatGPT, Codex. 56 tools.
+- [Gapsman](https://monili-vlr.github.io/gapsman/): The 3D engine for architecture driven by an AI. You write, the machine draws, then renders it. Works in ChatGPT, Codex. 26 tools.
+- [ThirdBrain-PII](https://monili-vlr.github.io/thirdbrain-pii/): Use Claude on real work and keep real names to yourself. Personal data is replaced in your browser and comes back only for you. Works in Claude. 3 tools.
+- [T-Shadow](https://monili-vlr.github.io/t-shadow/): A Windows security guardian that works inside Claude. It blocks with undo and explains every alarm in plain words. Works in Claude, Windows. 26 tools.
+- [Vertex](https://monili-vlr.github.io/vertex/): Your city, live, inside ChatGPT: real timetables, strikes, accessible routes and day plans that work. Works in ChatGPT. 37 tools.
+- [Claude VPN MCP](https://monili-vlr.github.io/claude-vpn-mcp/): Write "activate my location in California": Claude opens a browser that goes online from there through Tor. Free, nothing else to install. Works in Claude, Tor, Free. 5 tools.
+
+## Optional
+
+- [Full list of tools](https://monili-vlr.github.io/llms-full.txt)
+- [Product catalog as JSON](https://monili-vlr.github.io/catalog.json)
+- [Contact](https://monili-vlr.github.io/#contact)

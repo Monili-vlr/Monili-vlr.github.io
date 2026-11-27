@@ -1,0 +1,304 @@
+# Monili VLR
+
+> Monili VLR is a software factory run with AI agents. Each product is a tool an AI assistant (ChatGPT or Claude) can use: you write a sentence, the tool does real work. Six products, each a set of tools (MCP) that ChatGPT or Claude calls while you chat. Founder: Valerio Scorretti. Contact and access requests: https://monili-vlr.github.io/#contact
+
+For AI agents: a public read-only MCP server lists every product and tool: https://monili-vlr-mcp.monili-vlr.workers.dev/mcp (tools: list_products, get_product, search_tools, how_to_get). Full tool list: https://monili-vlr.github.io/llms-full.txt
+
+## GemCore
+
+Real CAD rings from a conversation: exact geometry, exact finger sizes, automatic checks, STL and STEP export.
+
+- Site: https://monili-vlr.github.io/gemcore/
+- Works in: ChatGPT, Codex
+- Area: 3D design in the chat
+- Example of what you write: "Design a size 14 ring with a twisted band."
+- How to get it: A plugin (MCP app) for ChatGPT and Codex, in early access. Ask for access through the Monili VLR contact form.
+- Tools the AI can call: 56
+
+
+### Start a new piece
+
+- `show_gemcore_welcome`: Welcome panel: carousel, benchmarks and limits.
+- `list_ring_typologies`: The catalogue: the first step of every new ring.
+- `start_ring_typology`: Builds the base of a catalogue piece as a new project.
+- `list_jewelry_templates`: Parametric templates and their parameters.
+- `get_template_parameters`: Parametric templates and their parameters.
+- `create_jewelry_spec`: Reproduce an existing JewelrySpec and generate it.
+- `validate_jewelry_spec`: Reproduce an existing JewelrySpec and generate it.
+- `generate_jewelry`: Reproduce an existing JewelrySpec and generate it.
+
+### Change the piece
+
+- `modify_jewelry`: Incremental change by parameters or simple words.
+- `apply_design_operations`: A list of vocabulary operations as one revision.
+- `get_design_vocabulary`: A list of vocabulary operations as one revision.
+- `apply_style`: A catalogue style: split shank, cathedral, bezel…
+- `get_ring_shape`: The ring’s shape with a jeweller’s handles.
+- `set_ring_shape`: The ring’s shape with a jeweller’s handles.
+- `move_part`: Free-form pieces: move parts, edit by points.
+- `rebuild_with_handles`: Free-form pieces: move parts, edit by points.
+- `get_freeform_program`: Free-form pieces: move parts, edit by points.
+
+### Stones, surface, details
+
+- `get_pave`: Painted stones and beads.
+- `edit_pave`: Painted stones and beads.
+- `get_rope_contours`: Ropes and braids along an edge.
+- `make_rope`: Ropes and braids along an edge.
+- `get_ring_lines`: Grooves and ribs along the piece.
+- `set_ring_lines`: Grooves and ribs along the piece.
+- `hammer_finish`: Hammered texture; scrolls on the shoulders.
+- `engrave_scrolls`: Hammered texture; scrolls on the shoulders.
+- `engraving_sheet_prompt`: Engraving from a photo, in two steps.
+- `engrave_from_sheet`: Engraving from a photo, in two steps.
+
+### References and look
+
+- `analyze_reference`: “Make it like this photo”, then compare from the same side.
+- `compare_with_reference`: “Make it like this photo”, then compare from the same side.
+- `import_mesh_reference`: A mesh made elsewhere as a reference.
+- `set_look`: Look and render in words; the 3D viewer; the user’s pen sketch.
+- `show_jewelry_viewer`: Look and render in words; the 3D viewer; the user’s pen sketch.
+- `get_annotation`: Look and render in words; the 3D viewer; the user’s pen sketch.
+
+### Checks, history, export
+
+- `get_model_status`: Three validation states; technical sheet for the jeweller.
+- `get_validation_report`: Three validation states; technical sheet for the jeweller.
+- `get_tech_sheet`: Three validation states; technical sheet for the jeweller.
+- `list_revisions`: Immutable revisions.
+- `restore_revision`: Immutable revisions.
+- `compare_revisions`: Immutable revisions.
+- `export_stl`: STL (metal + separate stones) and STEP (assembly, mm).
+- `export_step`: STL (metal + separate stones) and STEP (assembly, mm).
+- `wait_for_job`: Waits for long builds.
+
+### Help inside the chat
+
+- `propose_editor`: Yes/No to open a panel; interpreter card; link to this site.
+- `show_interpretation`: Yes/No to open a panel; interpreter card; link to this site.
+- `show_gemcore_page_button`: Yes/No to open a panel; interpreter card; link to this site.
+- `get_gemcore_page`: Yes/No to open a panel; interpreter card; link to this site.
+- `find_command`: Command database, spoken tutorials, user preferences.
+- `tutorial_chapter`: Command database, spoken tutorials, user preferences.
+- `tutorial_search`: Command database, spoken tutorials, user preferences.
+- `get_gemcore_preferences`: Command database, spoken tutorials, user preferences.
+
+### ChatGPT plugin server
+
+- `create_ring_design`: Create, change, undo and show a ring in 3D.
+- `modify_ring_design`: Create, change, undo and show a ring in 3D.
+- `undo_ring_change`: Create, change, undo and show a ring in 3D.
+- `show_ring_design`: Create, change, undo and show a ring in 3D.
+- `quote_wax_print`: Wax-print quote and order page (ready in the code, not live).
+- `start_wax_print_order`: Wax-print quote and order page (ready in the code, not live).
+
+Plus 49 internal tools used only by the product's own panel, not called by the AI.
+
+## Gapsman
+
+The 3D engine for architecture driven by an AI. You write, the machine draws, then renders it.
+
+- Site: https://monili-vlr.github.io/gapsman/
+- Works in: ChatGPT, Codex
+- Area: 3D design in the chat
+- Example of what you write: "Build this house from the plan and the section."
+- How to get it: A plugin (MCP app) for ChatGPT and Codex, in early access. Ask for access through the Monili VLR contact form.
+- Tools the AI can call: 26
+
+
+### Modelling
+
+- `create_model`: a new model, opened in the chat
+- `modify_model`: a new revision, from the model as you left it
+- `build_model`: builds the model from the traced drawings
+- `check_model`: checks every build step before going on
+
+### Technical drawings
+
+- `trace_plan`: traces walls, openings and rooms from a plan
+- `trace_section`: registers the section on the plan
+- `get_drawing_method`: method to read plans, sections and photos
+
+### Critic
+
+- `set_checklist`: writes what must be checked
+- `critique_model`: compares the model with the drawings
+- `get_critique`: reads the critique
+- `declare_critique`: records differences and fixes, for your approval
+
+### Real context
+
+- `locate_site`: finds the place
+- `build_context`: buildings from OpenStreetMap, checked on satellite imagery
+- `declare_streetview`: records what was read from the facades
+
+### Render
+
+- `add_camera`: places a target camera
+- `render_for_chatgpt`: path-traced render and ID render
+- `tag_entities`: tags vehicles, vegetation and landmarks (E-nn)
+- `get_render_prompt`: writes the prompt from the material IDs
+- `save_render_result`: saves the final image
+- `approve_render`: approves the image, kept as reference for next renders
+
+### Tools and projects
+
+- `create_user_tool`: composes a new command from existing ones
+- `run_user_tool`: runs one of your commands
+- `explain_command`: explains any command
+- `show_viewer`: reopens a revision in the chat
+- `get_model`: state of a project
+- `list_projects`: your projects
+
+## ThirdBrain-PII
+
+Use Claude on real work and keep real names to yourself. Personal data is replaced in your browser and comes back only for you.
+
+- Site: https://monili-vlr.github.io/thirdbrain-pii/
+- Works in: Claude
+- Area: Privacy and security
+- Example of what you write: "Summarise this contract without sending the names."
+- How to get it: A custom connector for Claude (claude.ai). Ask for the connector address through the Monili VLR contact form.
+- Tools the AI can call: 3
+
+
+### Connector tools (what Claude can call)
+
+- `thirdbrain_open`: Shows the panel in the chat. No input. Read-only, not destructive, closed world.
+- `thirdbrain_continue`: Shows the panel again after an answer, with that answer at the top. Its only input is Claude's answer, which holds placeholders only (max 20,000 characters); it is not kept, logged or returned.
+- `thirdbrain_help`: Returns the user guide of the panel as fixed text, the same for everyone. No input.
+
+## T-Shadow
+
+A Windows security guardian that works inside Claude. It blocks with undo and explains every alarm in plain words.
+
+- Site: https://monili-vlr.github.io/t-shadow/
+- Works in: Claude, Windows
+- Area: Privacy and security
+- Example of what you write: "Is anything strange running on my PC?"
+- How to get it: A Windows guardian plus a Claude plugin (Claude Code and Cowork). Public test not open yet: ask for access through the Monili VLR contact form.
+- Tools the AI can call: 26
+
+
+### Claude plugin tools (17)
+
+- `gshadow_status`: Overall state: inventory, defenses, alarms. Always called first.
+- `gshadow_alarms`: Current alarms with their details, to explain them.
+- `gshadow_threats`: Threats detected by Defender and their state.
+- `gshadow_devices`: Devices on the local network the PC has already talked to.
+- `gshadow_find_software`: Looks for an installed program, for example one named in a news item.
+- `gshadow_processes`: Running programs, for investigations or a slow PC.
+- `gshadow_startup`: Run and RunOnce keys and the startup folder.
+- `gshadow_file_info`: Size, dates and SHA-256 of a program file.
+- `gshadow_timeline`: Events in order, also to answer why something was blocked.
+- `gshadow_defender`: Health of Defender and its alarms.
+- `gshadow_news`: Today's exploited flaws, marked as relevant or not for this PC.
+- `gshadow_check_package`: Checks a PyPI or npm package name before install.
+- `gshadow_open_panel`: Shows a small T-Shadow panel inside the conversation where supported.
+- `gshadow_choices`: Ids of suspects, blocks and alarms, before an action.
+- `gshadow_act`: Protective actions, at most 5 every 10 minutes.
+- `gshadow_request_confirmation`: Asks for a code for actions that lower protection.
+- `gshadow_confirm`: Confirms with the code the user typed. Three wrong codes suspend confirmations for 10 minutes.
+
+### Guardian actions (19)
+
+- `antivirus_rapida`: Level 2. Starts a Defender quick scan.
+- `antivirus_completa`: Level 2. Starts a Defender full scan.
+- `vigilanza_on`: Level 2. Turns monitoring on.
+- `vigilanza_off`: Level 3. Turns monitoring off.
+- `caccia_on`: Level 2. Turns AI threat hunting on.
+- `caccia_off`: Level 3. Turns AI threat hunting off.
+- `caccia_ora`: Level 2. Runs a threat hunt now.
+- `wifi_tunnel`: Level 2. Disconnects a risky Wi-Fi or starts the VPN.
+- `scudo_installa`: Level 2. Installs the shield that runs as SYSTEM.
+
+## Vertex
+
+Your city, live, inside ChatGPT: real timetables, strikes, accessible routes and day plans that work.
+
+- Site: https://monili-vlr.github.io/vertex/
+- Works in: ChatGPT
+- Area: Mobility and travel
+- Example of what you write: "Plan my day in Barcelona, avoiding the metro strike."
+- How to get it: Apps for ChatGPT (VertexHub for any city, Vertex Barcelona, Vertex Bistro). Ask through the Monili VLR contact form.
+- Tools the AI can call: 37
+
+
+### VertexHub, Vertex Barcelona
+
+- `show_companion`: Show the travel companion: The chat card: the user's travel companion (an animated character) says your answer in a speech bubble, typed letter by letter, in front of a backdrop of real places nearby
+- `plan_route`: Plan a route: Use this to get directions between two places on foot, by bike, by car or by public transport (bus, metro, tram, train, ferry) worldwide, computed on real timetables: lines, where to board and get off
+
+### VertexHub
+
+- `reachable_in_time`: Where can I get to in N minutes: Use this to answer "where can I get to in 20 minutes from here?": computes every stop and area reachable by walking plus public transport within a time budget, on real timetables at the chosen time, a
+- `get_departures`: Get next departures: Use this for the next buses, trams, metros, trains or ferries leaving from stops near a place, with line, direction, local departure time, real-time delays and cancellations where the operator publish
+- `get_service_alerts`: Get public transport alerts: Use this to check strikes, closures, diversions, works and other disruptions on public transport around a place, for today or the next days, from the official real-time feeds of transit operators (GTF
+
+### VertexHub, Vertex Barcelona
+
+- `find_nearby`: Find nearby places: Use this to list real places of one category around a location, sorted by walking distance: restaurants, cafes, pharmacies, ATMs, toilets, museums, viewpoints, beaches, hotels, luggage storage, embass
+- `find_bike_share`: Find bike-share stations: Use this to find public bike-share stations near a place with live counts of available bikes (and e-bikes) and free docks, from about 800 systems worldwide (Citi Bike, Vélib', Santander Cycles, Bicing
+- `optimize_itinerary`: Optimise a day itinerary: Use this to turn a list of places into a realistic timed plan: it finds the visiting order with the least travel time on real walking, cycling or driving routes, builds a timeline (arrive, visit, leav
+- `start_guided_tour`: Start a guided tour: Use this when the user wants to follow an itinerary on the go, stop by stop: opens a guide card that shows the current stop, how to get to the next one right now (walking steps, or live public transpo
+- `show_map`: Show places on a map: Use this to display an interactive map with numbered pins: a shortlist of restaurants, sights, events, reachable destinations or a day plan
+- `search_places`: Search places: Use this to find a city, district, address, station, hotel or landmark by name and get its coordinates and a map link
+- `explore_sights`: Explore sights around a place: Use this to discover notable sights around a location: monuments, churches, museums, squares, historic buildings and other places that have a Wikipedia article, with distance, a short description and 
+- `get_place_info`: Get information about a sight: Use this when the user asks about one specific monument, museum, building, neighbourhood or city: returns the encyclopedia introduction (history and context), coordinates, an image and the official we
+- `get_city_guide`: Get city travel guide: Use this for practical, traveller-written guide content about a city or region: how to get in and around, what to see and do, where to eat, drink and sleep, safety tips and day trips
+- `suggest_events`: Suggest events in the city: Use this to propose what is on in the user's city: festivals, concerts, exhibitions, markets, sport, shows
+
+### VertexHub
+
+- `get_weather`: Get weather forecast: Use this for current weather and a forecast of up to 7 days at a place: temperature, rain probability, wind, UV index, sunrise/sunset and air quality
+
+### VertexHub, Vertex Barcelona
+
+- `play_umbrella_poem`: Play the umbrella word game: A small game for rainy moments: words rain down in a thick shower and a little traveller with an umbrella catches some of them
+- `play_catchme`: Play Catchme: "Catchme": a 45-second tap game for a dead moment (waiting for a bus or train, a queue, a delay, a long ride)
+- `suggest_souvenirs`: Suggest souvenirs of the trip: Use this once when the user is about to leave a destination (they mention the last day, packing, the flight home, or a stay you have followed for several days ends): proposes personalised print-on-dem
+- `get_travel_essentials`: Get travel essentials for a country: Use this before or at the start of a trip for practical country facts: emergency numbers, currency, languages, dialling code, side of the road, public holidays in the next 60 days (when shops and muse
+- `convert_currency`: Convert currency: Use this to convert an amount between any of 200+ world currencies with the latest daily rates: European Central Bank reference rates where available, otherwise an open daily dataset
+- `create_group`: Create a group room: Create a room for friends travelling together: a 6-letter code they join with
+- `join_group`: Join a group room: Join an existing room with its code and the name the user wants to use
+- `group_status`: Show the group room: Show the room: members (and distances, only for those who share their position), meeting point, stops with votes, expenses and who owes whom
+- `update_me_in_group`: Update my status in the room: Set the user's short status for the others ("at the café, 10 min late") and/or where they are, as a place they NAME ("Praça do Comércio"), which is geocoded
+- `set_meeting_point`: Set the meeting point: Set (or change) where and when the group meets
+- `vote_stop`: Propose or vote a stop: Propose a stop for the group (a place, a restaurant, a plan) or vote for one already proposed (by its name)
+- `add_expense`: Add a shared expense: Record something the user paid for the group ("I paid 48 for dinner")
+- `leave_group`: Leave the group room: Remove the user from the room: their name, position, status and expenses they paid are deleted
+- `tmb_route`: TMB route in Barcelona: Use this for a public-transport route inside Barcelona from A to B on the official TMB planner (metro, bus, tram, walking) with the current timetable: lines, stops, transfers and minutes
+
+### VertexHub
+
+- `sea_conditions`: Sea and beach conditions: Use this when the user asks whether they can swim, how the water or the waves are, or about sun protection at the beach in Barcelona: live water temperature, wave height (today and tomorrow) and the U
+
+### VertexHub, Vertex Barcelona
+
+- `public_holidays`: Public holidays: Use this when the user asks whether a day is a holiday, why shops are closed, or plans dates in Barcelona: official public holidays in Spain and Catalonia for the next 90 days
+- `open_now`: Places open right now: Use this when the user needs something open at this moment near a place, by free text: "pharmacy", "Italian restaurant", "sushi", "supermarket", "late-night bar", "copy shop"
+
+### VertexHub
+
+- `mobility_get_coverage`: Which live transport data covers a place: Use this to know which open transport data exists for a place before promising live information: timetable feeds, realtime feeds, live vehicle positions and shared-mobility systems listed in the Mobil
+- `mobility_get_vehicles`: Live buses, trams and trains nearby: Use this when the user asks where their bus, tram or train is right now, or which vehicles are moving near a place: positions from the operators' open GTFS-Realtime feeds, with the time of each positi
+- `mobility_find_shared`: Shared bikes, scooters, mopeds and cars nearby: Use this to find shared vehicles available right now near a place — dockless bikes, e-scooters, mopeds, car sharing and docked bike stations — from the operators' open GBFS feeds, with live counts
+- `mobility_find_charging`: EV chargers nearby: Use this to find electric-vehicle charging stations near a place with connector types, power in kW, number of points, cost notes and last reported status, from Open Charge Map
+
+## Claude VPN MCP
+
+Write "activate my location in California": Claude opens a browser that goes online from there through Tor. Free, nothing else to install.
+
+- Site: https://monili-vlr.github.io/claude-vpn-mcp/
+- Works in: Claude, Tor, Free
+- Area: AI infrastructure
+- Example of what you write: "Activate my location in California."
+- How to get it: A free local MCP connector for Claude Desktop, built on Tor. Ask for the connector through the Monili VLR contact form.
+- Tools the AI can call: 5
+
+- `vpn_activate`: Finds Tor exits in that place, builds the route, verifies the exit and makes it current.
+- `vpn_locations`: Places active now, the current one, and examples you can ask for.
+- `vpn_status`: Exit IP and its real city, region and country.
+- `vpn_deactivate`: Turns a place off: the browser first, then its Tor client.
+- `browser_open`: Opens a public page from the current place: final address, title and HTTP status.

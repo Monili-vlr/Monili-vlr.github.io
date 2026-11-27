@@ -1,0 +1,878 @@
+{
+ "name": "Monili VLR",
+ "url": "https://monili-vlr.github.io/",
+ "founder": "Valerio Scorretti",
+ "about": "Monili VLR is a software factory run with AI agents. Each product is a tool an AI assistant (ChatGPT or Claude) can use: you write a sentence, the tool does real work.",
+ "contact": "https://monili-vlr.github.io/#contact",
+ "llms_txt": "https://monili-vlr.github.io/llms.txt",
+ "mcp_server": "https://monili-vlr-mcp.monili-vlr.workers.dev/mcp",
+ "updated": "2026-11-27",
+ "products": [
+  {
+   "id": "gemcore",
+   "name": "GemCore",
+   "market": "design",
+   "summary": "Real CAD rings from a conversation: exact geometry, exact finger sizes, automatic checks, STL and STEP export.",
+   "example_prompt": "Design a size 14 ring with a twisted band.",
+   "works_in": [
+    "ChatGPT",
+    "Codex"
+   ],
+   "url": "https://monili-vlr.github.io/gemcore/",
+   "market_name": "3D design in the chat",
+   "how_to_get": "A plugin (MCP app) for ChatGPT and Codex, in early access. Ask for access through the Monili VLR contact form.",
+   "tools": [
+    {
+     "name": "show_gemcore_welcome",
+     "group": "Start a new piece",
+     "description": "Welcome panel: carousel, benchmarks and limits."
+    },
+    {
+     "name": "list_ring_typologies",
+     "group": "Start a new piece",
+     "description": "The catalogue: the first step of every new ring."
+    },
+    {
+     "name": "start_ring_typology",
+     "group": "Start a new piece",
+     "description": "Builds the base of a catalogue piece as a new project."
+    },
+    {
+     "name": "list_jewelry_templates",
+     "group": "Start a new piece",
+     "description": "Parametric templates and their parameters."
+    },
+    {
+     "name": "get_template_parameters",
+     "group": "Start a new piece",
+     "description": "Parametric templates and their parameters."
+    },
+    {
+     "name": "create_jewelry_spec",
+     "group": "Start a new piece",
+     "description": "Reproduce an existing JewelrySpec and generate it."
+    },
+    {
+     "name": "validate_jewelry_spec",
+     "group": "Start a new piece",
+     "description": "Reproduce an existing JewelrySpec and generate it."
+    },
+    {
+     "name": "generate_jewelry",
+     "group": "Start a new piece",
+     "description": "Reproduce an existing JewelrySpec and generate it."
+    },
+    {
+     "name": "modify_jewelry",
+     "group": "Change the piece",
+     "description": "Incremental change by parameters or simple words."
+    },
+    {
+     "name": "apply_design_operations",
+     "group": "Change the piece",
+     "description": "A list of vocabulary operations as one revision."
+    },
+    {
+     "name": "get_design_vocabulary",
+     "group": "Change the piece",
+     "description": "A list of vocabulary operations as one revision."
+    },
+    {
+     "name": "apply_style",
+     "group": "Change the piece",
+     "description": "A catalogue style: split shank, cathedral, bezel…"
+    },
+    {
+     "name": "get_ring_shape",
+     "group": "Change the piece",
+     "description": "The ring’s shape with a jeweller’s handles."
+    },
+    {
+     "name": "set_ring_shape",
+     "group": "Change the piece",
+     "description": "The ring’s shape with a jeweller’s handles."
+    },
+    {
+     "name": "move_part",
+     "group": "Change the piece",
+     "description": "Free-form pieces: move parts, edit by points."
+    },
+    {
+     "name": "rebuild_with_handles",
+     "group": "Change the piece",
+     "description": "Free-form pieces: move parts, edit by points."
+    },
+    {
+     "name": "get_freeform_program",
+     "group": "Change the piece",
+     "description": "Free-form pieces: move parts, edit by points."
+    },
+    {
+     "name": "get_pave",
+     "group": "Stones, surface, details",
+     "description": "Painted stones and beads."
+    },
+    {
+     "name": "edit_pave",
+     "group": "Stones, surface, details",
+     "description": "Painted stones and beads."
+    },
+    {
+     "name": "get_rope_contours",
+     "group": "Stones, surface, details",
+     "description": "Ropes and braids along an edge."
+    },
+    {
+     "name": "make_rope",
+     "group": "Stones, surface, details",
+     "description": "Ropes and braids along an edge."
+    },
+    {
+     "name": "get_ring_lines",
+     "group": "Stones, surface, details",
+     "description": "Grooves and ribs along the piece."
+    },
+    {
+     "name": "set_ring_lines",
+     "group": "Stones, surface, details",
+     "description": "Grooves and ribs along the piece."
+    },
+    {
+     "name": "hammer_finish",
+     "group": "Stones, surface, details",
+     "description": "Hammered texture; scrolls on the shoulders."
+    },
+    {
+     "name": "engrave_scrolls",
+     "group": "Stones, surface, details",
+     "description": "Hammered texture; scrolls on the shoulders."
+    },
+    {
+     "name": "engraving_sheet_prompt",
+     "group": "Stones, surface, details",
+     "description": "Engraving from a photo, in two steps."
+    },
+    {
+     "name": "engrave_from_sheet",
+     "group": "Stones, surface, details",
+     "description": "Engraving from a photo, in two steps."
+    },
+    {
+     "name": "analyze_reference",
+     "group": "References and look",
+     "description": "“Make it like this photo”, then compare from the same side."
+    },
+    {
+     "name": "compare_with_reference",
+     "group": "References and look",
+     "description": "“Make it like this photo”, then compare from the same side."
+    },
+    {
+     "name": "import_mesh_reference",
+     "group": "References and look",
+     "description": "A mesh made elsewhere as a reference."
+    },
+    {
+     "name": "set_look",
+     "group": "References and look",
+     "description": "Look and render in words; the 3D viewer; the user’s pen sketch."
+    },
+    {
+     "name": "show_jewelry_viewer",
+     "group": "References and look",
+     "description": "Look and render in words; the 3D viewer; the user’s pen sketch."
+    },
+    {
+     "name": "get_annotation",
+     "group": "References and look",
+     "description": "Look and render in words; the 3D viewer; the user’s pen sketch."
+    },
+    {
+     "name": "get_model_status",
+     "group": "Checks, history, export",
+     "description": "Three validation states; technical sheet for the jeweller."
+    },
+    {
+     "name": "get_validation_report",
+     "group": "Checks, history, export",
+     "description": "Three validation states; technical sheet for the jeweller."
+    },
+    {
+     "name": "get_tech_sheet",
+     "group": "Checks, history, export",
+     "description": "Three validation states; technical sheet for the jeweller."
+    },
+    {
+     "name": "list_revisions",
+     "group": "Checks, history, export",
+     "description": "Immutable revisions."
+    },
+    {
+     "name": "restore_revision",
+     "group": "Checks, history, export",
+     "description": "Immutable revisions."
+    },
+    {
+     "name": "compare_revisions",
+     "group": "Checks, history, export",
+     "description": "Immutable revisions."
+    },
+    {
+     "name": "export_stl",
+     "group": "Checks, history, export",
+     "description": "STL (metal + separate stones) and STEP (assembly, mm)."
+    },
+    {
+     "name": "export_step",
+     "group": "Checks, history, export",
+     "description": "STL (metal + separate stones) and STEP (assembly, mm)."
+    },
+    {
+     "name": "wait_for_job",
+     "group": "Checks, history, export",
+     "description": "Waits for long builds."
+    },
+    {
+     "name": "propose_editor",
+     "group": "Help inside the chat",
+     "description": "Yes/No to open a panel; interpreter card; link to this site."
+    },
+    {
+     "name": "show_interpretation",
+     "group": "Help inside the chat",
+     "description": "Yes/No to open a panel; interpreter card; link to this site."
+    },
+    {
+     "name": "show_gemcore_page_button",
+     "group": "Help inside the chat",
+     "description": "Yes/No to open a panel; interpreter card; link to this site."
+    },
+    {
+     "name": "get_gemcore_page",
+     "group": "Help inside the chat",
+     "description": "Yes/No to open a panel; interpreter card; link to this site."
+    },
+    {
+     "name": "find_command",
+     "group": "Help inside the chat",
+     "description": "Command database, spoken tutorials, user preferences."
+    },
+    {
+     "name": "tutorial_chapter",
+     "group": "Help inside the chat",
+     "description": "Command database, spoken tutorials, user preferences."
+    },
+    {
+     "name": "tutorial_search",
+     "group": "Help inside the chat",
+     "description": "Command database, spoken tutorials, user preferences."
+    },
+    {
+     "name": "get_gemcore_preferences",
+     "group": "Help inside the chat",
+     "description": "Command database, spoken tutorials, user preferences."
+    },
+    {
+     "name": "create_ring_design",
+     "group": "ChatGPT plugin server",
+     "description": "Create, change, undo and show a ring in 3D."
+    },
+    {
+     "name": "modify_ring_design",
+     "group": "ChatGPT plugin server",
+     "description": "Create, change, undo and show a ring in 3D."
+    },
+    {
+     "name": "undo_ring_change",
+     "group": "ChatGPT plugin server",
+     "description": "Create, change, undo and show a ring in 3D."
+    },
+    {
+     "name": "show_ring_design",
+     "group": "ChatGPT plugin server",
+     "description": "Create, change, undo and show a ring in 3D."
+    },
+    {
+     "name": "quote_wax_print",
+     "group": "ChatGPT plugin server",
+     "description": "Wax-print quote and order page (ready in the code, not live)."
+    },
+    {
+     "name": "start_wax_print_order",
+     "group": "ChatGPT plugin server",
+     "description": "Wax-print quote and order page (ready in the code, not live)."
+    }
+   ],
+   "internal_tools": 49
+  },
+  {
+   "id": "gapsman",
+   "name": "Gapsman",
+   "market": "design",
+   "summary": "The 3D engine for architecture driven by an AI. You write, the machine draws, then renders it.",
+   "example_prompt": "Build this house from the plan and the section.",
+   "works_in": [
+    "ChatGPT",
+    "Codex"
+   ],
+   "url": "https://monili-vlr.github.io/gapsman/",
+   "market_name": "3D design in the chat",
+   "how_to_get": "A plugin (MCP app) for ChatGPT and Codex, in early access. Ask for access through the Monili VLR contact form.",
+   "tools": [
+    {
+     "name": "create_model",
+     "group": "Modelling",
+     "description": "a new model, opened in the chat"
+    },
+    {
+     "name": "modify_model",
+     "group": "Modelling",
+     "description": "a new revision, from the model as you left it"
+    },
+    {
+     "name": "build_model",
+     "group": "Modelling",
+     "description": "builds the model from the traced drawings"
+    },
+    {
+     "name": "check_model",
+     "group": "Modelling",
+     "description": "checks every build step before going on"
+    },
+    {
+     "name": "trace_plan",
+     "group": "Technical drawings",
+     "description": "traces walls, openings and rooms from a plan"
+    },
+    {
+     "name": "trace_section",
+     "group": "Technical drawings",
+     "description": "registers the section on the plan"
+    },
+    {
+     "name": "get_drawing_method",
+     "group": "Technical drawings",
+     "description": "method to read plans, sections and photos"
+    },
+    {
+     "name": "set_checklist",
+     "group": "Critic",
+     "description": "writes what must be checked"
+    },
+    {
+     "name": "critique_model",
+     "group": "Critic",
+     "description": "compares the model with the drawings"
+    },
+    {
+     "name": "get_critique",
+     "group": "Critic",
+     "description": "reads the critique"
+    },
+    {
+     "name": "declare_critique",
+     "group": "Critic",
+     "description": "records differences and fixes, for your approval"
+    },
+    {
+     "name": "locate_site",
+     "group": "Real context",
+     "description": "finds the place"
+    },
+    {
+     "name": "build_context",
+     "group": "Real context",
+     "description": "buildings from OpenStreetMap, checked on satellite imagery"
+    },
+    {
+     "name": "declare_streetview",
+     "group": "Real context",
+     "description": "records what was read from the facades"
+    },
+    {
+     "name": "add_camera",
+     "group": "Render",
+     "description": "places a target camera"
+    },
+    {
+     "name": "render_for_chatgpt",
+     "group": "Render",
+     "description": "path-traced render and ID render"
+    },
+    {
+     "name": "tag_entities",
+     "group": "Render",
+     "description": "tags vehicles, vegetation and landmarks (E-nn)"
+    },
+    {
+     "name": "get_render_prompt",
+     "group": "Render",
+     "description": "writes the prompt from the material IDs"
+    },
+    {
+     "name": "save_render_result",
+     "group": "Render",
+     "description": "saves the final image"
+    },
+    {
+     "name": "approve_render",
+     "group": "Render",
+     "description": "approves the image, kept as reference for next renders"
+    },
+    {
+     "name": "create_user_tool",
+     "group": "Tools and projects",
+     "description": "composes a new command from existing ones"
+    },
+    {
+     "name": "run_user_tool",
+     "group": "Tools and projects",
+     "description": "runs one of your commands"
+    },
+    {
+     "name": "explain_command",
+     "group": "Tools and projects",
+     "description": "explains any command"
+    },
+    {
+     "name": "show_viewer",
+     "group": "Tools and projects",
+     "description": "reopens a revision in the chat"
+    },
+    {
+     "name": "get_model",
+     "group": "Tools and projects",
+     "description": "state of a project"
+    },
+    {
+     "name": "list_projects",
+     "group": "Tools and projects",
+     "description": "your projects"
+    }
+   ],
+   "internal_tools": 0
+  },
+  {
+   "id": "thirdbrain-pii",
+   "name": "ThirdBrain-PII",
+   "market": "privacy",
+   "summary": "Use Claude on real work and keep real names to yourself. Personal data is replaced in your browser and comes back only for you.",
+   "example_prompt": "Summarise this contract without sending the names.",
+   "works_in": [
+    "Claude"
+   ],
+   "url": "https://monili-vlr.github.io/thirdbrain-pii/",
+   "market_name": "Privacy and security",
+   "how_to_get": "A custom connector for Claude (claude.ai). Ask for the connector address through the Monili VLR contact form.",
+   "tools": [
+    {
+     "name": "thirdbrain_open",
+     "group": "Connector tools (what Claude can call)",
+     "description": "Shows the panel in the chat. No input. Read-only, not destructive, closed world."
+    },
+    {
+     "name": "thirdbrain_continue",
+     "group": "Connector tools (what Claude can call)",
+     "description": "Shows the panel again after an answer, with that answer at the top. Its only input is Claude's answer, which holds placeholders only (max 20,000 characters); it is not kept, logged or returned."
+    },
+    {
+     "name": "thirdbrain_help",
+     "group": "Connector tools (what Claude can call)",
+     "description": "Returns the user guide of the panel as fixed text, the same for everyone. No input."
+    }
+   ],
+   "internal_tools": 0
+  },
+  {
+   "id": "t-shadow",
+   "name": "T-Shadow",
+   "market": "privacy",
+   "summary": "A Windows security guardian that works inside Claude. It blocks with undo and explains every alarm in plain words.",
+   "example_prompt": "Is anything strange running on my PC?",
+   "works_in": [
+    "Claude",
+    "Windows"
+   ],
+   "url": "https://monili-vlr.github.io/t-shadow/",
+   "market_name": "Privacy and security",
+   "how_to_get": "A Windows guardian plus a Claude plugin (Claude Code and Cowork). Public test not open yet: ask for access through the Monili VLR contact form.",
+   "tools": [
+    {
+     "name": "gshadow_status",
+     "group": "Claude plugin tools (17)",
+     "description": "Overall state: inventory, defenses, alarms. Always called first."
+    },
+    {
+     "name": "gshadow_alarms",
+     "group": "Claude plugin tools (17)",
+     "description": "Current alarms with their details, to explain them."
+    },
+    {
+     "name": "gshadow_threats",
+     "group": "Claude plugin tools (17)",
+     "description": "Threats detected by Defender and their state."
+    },
+    {
+     "name": "gshadow_devices",
+     "group": "Claude plugin tools (17)",
+     "description": "Devices on the local network the PC has already talked to."
+    },
+    {
+     "name": "gshadow_find_software",
+     "group": "Claude plugin tools (17)",
+     "description": "Looks for an installed program, for example one named in a news item."
+    },
+    {
+     "name": "gshadow_processes",
+     "group": "Claude plugin tools (17)",
+     "description": "Running programs, for investigations or a slow PC."
+    },
+    {
+     "name": "gshadow_startup",
+     "group": "Claude plugin tools (17)",
+     "description": "Run and RunOnce keys and the startup folder."
+    },
+    {
+     "name": "gshadow_file_info",
+     "group": "Claude plugin tools (17)",
+     "description": "Size, dates and SHA-256 of a program file."
+    },
+    {
+     "name": "gshadow_timeline",
+     "group": "Claude plugin tools (17)",
+     "description": "Events in order, also to answer why something was blocked."
+    },
+    {
+     "name": "gshadow_defender",
+     "group": "Claude plugin tools (17)",
+     "description": "Health of Defender and its alarms."
+    },
+    {
+     "name": "gshadow_news",
+     "group": "Claude plugin tools (17)",
+     "description": "Today's exploited flaws, marked as relevant or not for this PC."
+    },
+    {
+     "name": "gshadow_check_package",
+     "group": "Claude plugin tools (17)",
+     "description": "Checks a PyPI or npm package name before install."
+    },
+    {
+     "name": "gshadow_open_panel",
+     "group": "Claude plugin tools (17)",
+     "description": "Shows a small T-Shadow panel inside the conversation where supported."
+    },
+    {
+     "name": "gshadow_choices",
+     "group": "Claude plugin tools (17)",
+     "description": "Ids of suspects, blocks and alarms, before an action."
+    },
+    {
+     "name": "gshadow_act",
+     "group": "Claude plugin tools (17)",
+     "description": "Protective actions, at most 5 every 10 minutes."
+    },
+    {
+     "name": "gshadow_request_confirmation",
+     "group": "Claude plugin tools (17)",
+     "description": "Asks for a code for actions that lower protection."
+    },
+    {
+     "name": "gshadow_confirm",
+     "group": "Claude plugin tools (17)",
+     "description": "Confirms with the code the user typed. Three wrong codes suspend confirmations for 10 minutes."
+    },
+    {
+     "name": "antivirus_rapida",
+     "group": "Guardian actions (19)",
+     "description": "Level 2. Starts a Defender quick scan."
+    },
+    {
+     "name": "antivirus_completa",
+     "group": "Guardian actions (19)",
+     "description": "Level 2. Starts a Defender full scan."
+    },
+    {
+     "name": "vigilanza_on",
+     "group": "Guardian actions (19)",
+     "description": "Level 2. Turns monitoring on."
+    },
+    {
+     "name": "vigilanza_off",
+     "group": "Guardian actions (19)",
+     "description": "Level 3. Turns monitoring off."
+    },
+    {
+     "name": "caccia_on",
+     "group": "Guardian actions (19)",
+     "description": "Level 2. Turns AI threat hunting on."
+    },
+    {
+     "name": "caccia_off",
+     "group": "Guardian actions (19)",
+     "description": "Level 3. Turns AI threat hunting off."
+    },
+    {
+     "name": "caccia_ora",
+     "group": "Guardian actions (19)",
+     "description": "Level 2. Runs a threat hunt now."
+    },
+    {
+     "name": "wifi_tunnel",
+     "group": "Guardian actions (19)",
+     "description": "Level 2. Disconnects a risky Wi-Fi or starts the VPN."
+    },
+    {
+     "name": "scudo_installa",
+     "group": "Guardian actions (19)",
+     "description": "Level 2. Installs the shield that runs as SYSTEM."
+    }
+   ],
+   "internal_tools": 0
+  },
+  {
+   "id": "vertex",
+   "name": "Vertex",
+   "market": "travel",
+   "summary": "Your city, live, inside ChatGPT: real timetables, strikes, accessible routes and day plans that work.",
+   "example_prompt": "Plan my day in Barcelona, avoiding the metro strike.",
+   "works_in": [
+    "ChatGPT"
+   ],
+   "url": "https://monili-vlr.github.io/vertex/",
+   "market_name": "Mobility and travel",
+   "how_to_get": "Apps for ChatGPT (VertexHub for any city, Vertex Barcelona, Vertex Bistro). Ask through the Monili VLR contact form.",
+   "tools": [
+    {
+     "name": "show_companion",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Show the travel companion: The chat card: the user's travel companion (an animated character) says your answer in a speech bubble, typed letter by letter, in front of a backdrop of real places nearby"
+    },
+    {
+     "name": "plan_route",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Plan a route: Use this to get directions between two places on foot, by bike, by car or by public transport (bus, metro, tram, train, ferry) worldwide, computed on real timetables: lines, where to board and get off"
+    },
+    {
+     "name": "reachable_in_time",
+     "group": "VertexHub",
+     "description": "Where can I get to in N minutes: Use this to answer \"where can I get to in 20 minutes from here?\": computes every stop and area reachable by walking plus public transport within a time budget, on real timetables at the chosen time, a"
+    },
+    {
+     "name": "get_departures",
+     "group": "VertexHub",
+     "description": "Get next departures: Use this for the next buses, trams, metros, trains or ferries leaving from stops near a place, with line, direction, local departure time, real-time delays and cancellations where the operator publish"
+    },
+    {
+     "name": "get_service_alerts",
+     "group": "VertexHub",
+     "description": "Get public transport alerts: Use this to check strikes, closures, diversions, works and other disruptions on public transport around a place, for today or the next days, from the official real-time feeds of transit operators (GTF"
+    },
+    {
+     "name": "find_nearby",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Find nearby places: Use this to list real places of one category around a location, sorted by walking distance: restaurants, cafes, pharmacies, ATMs, toilets, museums, viewpoints, beaches, hotels, luggage storage, embass"
+    },
+    {
+     "name": "find_bike_share",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Find bike-share stations: Use this to find public bike-share stations near a place with live counts of available bikes (and e-bikes) and free docks, from about 800 systems worldwide (Citi Bike, Vélib', Santander Cycles, Bicing"
+    },
+    {
+     "name": "optimize_itinerary",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Optimise a day itinerary: Use this to turn a list of places into a realistic timed plan: it finds the visiting order with the least travel time on real walking, cycling or driving routes, builds a timeline (arrive, visit, leav"
+    },
+    {
+     "name": "start_guided_tour",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Start a guided tour: Use this when the user wants to follow an itinerary on the go, stop by stop: opens a guide card that shows the current stop, how to get to the next one right now (walking steps, or live public transpo"
+    },
+    {
+     "name": "show_map",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Show places on a map: Use this to display an interactive map with numbered pins: a shortlist of restaurants, sights, events, reachable destinations or a day plan"
+    },
+    {
+     "name": "search_places",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Search places: Use this to find a city, district, address, station, hotel or landmark by name and get its coordinates and a map link"
+    },
+    {
+     "name": "explore_sights",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Explore sights around a place: Use this to discover notable sights around a location: monuments, churches, museums, squares, historic buildings and other places that have a Wikipedia article, with distance, a short description and "
+    },
+    {
+     "name": "get_place_info",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Get information about a sight: Use this when the user asks about one specific monument, museum, building, neighbourhood or city: returns the encyclopedia introduction (history and context), coordinates, an image and the official we"
+    },
+    {
+     "name": "get_city_guide",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Get city travel guide: Use this for practical, traveller-written guide content about a city or region: how to get in and around, what to see and do, where to eat, drink and sleep, safety tips and day trips"
+    },
+    {
+     "name": "suggest_events",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Suggest events in the city: Use this to propose what is on in the user's city: festivals, concerts, exhibitions, markets, sport, shows"
+    },
+    {
+     "name": "get_weather",
+     "group": "VertexHub",
+     "description": "Get weather forecast: Use this for current weather and a forecast of up to 7 days at a place: temperature, rain probability, wind, UV index, sunrise/sunset and air quality"
+    },
+    {
+     "name": "play_umbrella_poem",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Play the umbrella word game: A small game for rainy moments: words rain down in a thick shower and a little traveller with an umbrella catches some of them"
+    },
+    {
+     "name": "play_catchme",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Play Catchme: \"Catchme\": a 45-second tap game for a dead moment (waiting for a bus or train, a queue, a delay, a long ride)"
+    },
+    {
+     "name": "suggest_souvenirs",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Suggest souvenirs of the trip: Use this once when the user is about to leave a destination (they mention the last day, packing, the flight home, or a stay you have followed for several days ends): proposes personalised print-on-dem"
+    },
+    {
+     "name": "get_travel_essentials",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Get travel essentials for a country: Use this before or at the start of a trip for practical country facts: emergency numbers, currency, languages, dialling code, side of the road, public holidays in the next 60 days (when shops and muse"
+    },
+    {
+     "name": "convert_currency",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Convert currency: Use this to convert an amount between any of 200+ world currencies with the latest daily rates: European Central Bank reference rates where available, otherwise an open daily dataset"
+    },
+    {
+     "name": "create_group",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Create a group room: Create a room for friends travelling together: a 6-letter code they join with"
+    },
+    {
+     "name": "join_group",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Join a group room: Join an existing room with its code and the name the user wants to use"
+    },
+    {
+     "name": "group_status",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Show the group room: Show the room: members (and distances, only for those who share their position), meeting point, stops with votes, expenses and who owes whom"
+    },
+    {
+     "name": "update_me_in_group",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Update my status in the room: Set the user's short status for the others (\"at the café, 10 min late\") and/or where they are, as a place they NAME (\"Praça do Comércio\"), which is geocoded"
+    },
+    {
+     "name": "set_meeting_point",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Set the meeting point: Set (or change) where and when the group meets"
+    },
+    {
+     "name": "vote_stop",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Propose or vote a stop: Propose a stop for the group (a place, a restaurant, a plan) or vote for one already proposed (by its name)"
+    },
+    {
+     "name": "add_expense",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Add a shared expense: Record something the user paid for the group (\"I paid 48 for dinner\")"
+    },
+    {
+     "name": "leave_group",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Leave the group room: Remove the user from the room: their name, position, status and expenses they paid are deleted"
+    },
+    {
+     "name": "tmb_route",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "TMB route in Barcelona: Use this for a public-transport route inside Barcelona from A to B on the official TMB planner (metro, bus, tram, walking) with the current timetable: lines, stops, transfers and minutes"
+    },
+    {
+     "name": "sea_conditions",
+     "group": "VertexHub",
+     "description": "Sea and beach conditions: Use this when the user asks whether they can swim, how the water or the waves are, or about sun protection at the beach in Barcelona: live water temperature, wave height (today and tomorrow) and the U"
+    },
+    {
+     "name": "public_holidays",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Public holidays: Use this when the user asks whether a day is a holiday, why shops are closed, or plans dates in Barcelona: official public holidays in Spain and Catalonia for the next 90 days"
+    },
+    {
+     "name": "open_now",
+     "group": "VertexHub, Vertex Barcelona",
+     "description": "Places open right now: Use this when the user needs something open at this moment near a place, by free text: \"pharmacy\", \"Italian restaurant\", \"sushi\", \"supermarket\", \"late-night bar\", \"copy shop\""
+    },
+    {
+     "name": "mobility_get_coverage",
+     "group": "VertexHub",
+     "description": "Which live transport data covers a place: Use this to know which open transport data exists for a place before promising live information: timetable feeds, realtime feeds, live vehicle positions and shared-mobility systems listed in the Mobil"
+    },
+    {
+     "name": "mobility_get_vehicles",
+     "group": "VertexHub",
+     "description": "Live buses, trams and trains nearby: Use this when the user asks where their bus, tram or train is right now, or which vehicles are moving near a place: positions from the operators' open GTFS-Realtime feeds, with the time of each positi"
+    },
+    {
+     "name": "mobility_find_shared",
+     "group": "VertexHub",
+     "description": "Shared bikes, scooters, mopeds and cars nearby: Use this to find shared vehicles available right now near a place — dockless bikes, e-scooters, mopeds, car sharing and docked bike stations — from the operators' open GBFS feeds, with live counts"
+    },
+    {
+     "name": "mobility_find_charging",
+     "group": "VertexHub",
+     "description": "EV chargers nearby: Use this to find electric-vehicle charging stations near a place with connector types, power in kW, number of points, cost notes and last reported status, from Open Charge Map"
+    }
+   ],
+   "internal_tools": 0
+  },
+  {
+   "id": "claude-vpn-mcp",
+   "name": "Claude VPN MCP",
+   "market": "infra",
+   "summary": "Write \"activate my location in California\": Claude opens a browser that goes online from there through Tor. Free, nothing else to install.",
+   "example_prompt": "Activate my location in California.",
+   "works_in": [
+    "Claude",
+    "Tor",
+    "Free"
+   ],
+   "url": "https://monili-vlr.github.io/claude-vpn-mcp/",
+   "market_name": "AI infrastructure",
+   "how_to_get": "A free local MCP connector for Claude Desktop, built on Tor. Ask for the connector through the Monili VLR contact form.",
+   "tools": [
+    {
+     "name": "vpn_activate",
+     "group": "",
+     "description": "Finds Tor exits in that place, builds the route, verifies the exit and makes it current."
+    },
+    {
+     "name": "vpn_locations",
+     "group": "",
+     "description": "Places active now, the current one, and examples you can ask for."
+    },
+    {
+     "name": "vpn_status",
+     "group": "",
+     "description": "Exit IP and its real city, region and country."
+    },
+    {
+     "name": "vpn_deactivate",
+     "group": "",
+     "description": "Turns a place off: the browser first, then its Tor client."
+    },
+    {
+     "name": "browser_open",
+     "group": "",
+     "description": "Opens a public page from the current place: final address, title and HTTP status."
+    }
+   ],
+   "internal_tools": 0
+  }
+ ]
+}

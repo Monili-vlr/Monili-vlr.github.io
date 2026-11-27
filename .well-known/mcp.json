@@ -1,0 +1,19 @@
+{
+ "name": "io.github.monili-vlr/catalog",
+ "title": "Monili VLR catalog",
+ "version": "1.0.0",
+ "description": "Read-only catalog of the Monili VLR products and of every tool they give to ChatGPT and Claude.",
+ "websiteUrl": "https://monili-vlr.github.io/",
+ "remotes": [
+  {
+   "type": "streamable-http",
+   "url": "https://monili-vlr-mcp.monili-vlr.workers.dev/mcp"
+  }
+ ],
+ "tools": [
+  "list_products",
+  "get_product",
+  "search_tools",
+  "how_to_get"
+ ]
+}
