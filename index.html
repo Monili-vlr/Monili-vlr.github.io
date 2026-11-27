@@ -61,15 +61,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .mark svg { width: 18px; height: 18px; }
 .bar nav { margin-left: auto; display: flex; gap: 24px; }
 .bar nav a { text-decoration: none; font-weight: 600; font-size: 15px; color: var(--mute); }
-@media (hover: hover) and (pointer: fine) { .bar nav a:hover { color: var(--fg); } }
+.bar nav a:hover { color: var(--fg); }
 
 /* buttons */
 .btn { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 999px; font: 600 16px var(--body); text-decoration: none; transition: transform .15s; }
-@media (hover: hover) and (pointer: fine) { .btn:hover { transform: translateY(-1px); } }
+.btn:hover { transform: translateY(-1px); }
 .btn.pri { background: var(--fg); color: #fff; }
 .btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
 .btn.ghost { background: var(--surface); }
-@media (hover: hover) and (pointer: fine) { .btn.ghost:hover { border-color: rgba(22,20,40,.3); } }
+.btn.ghost:hover { border-color: rgba(22,20,40,.3); }
 
 /* hero */
 .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; padding-block: 64px 40px; }
@@ -84,7 +84,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @keyframes blink { 50% { opacity: 0; } }
 .stage .made { position: absolute; left: 18px; right: 18px; bottom: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .stage .made a { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; background: rgba(8,9,13,.72); border: 1px solid rgba(255,255,255,.12); text-decoration: none; font-weight: 600; backdrop-filter: blur(8px); }
-@media (hover: hover) and (pointer: fine) { .stage .made a:hover { border-color: rgba(255,255,255,.35); } }
+.stage .made a:hover { border-color: rgba(255,255,255,.35); }
 .stage .made a i { width: 9px; height: 9px; border-radius: 50%; }
 .pick { display: flex; gap: 6px; }
 .pick button { width: 10px; height: 10px; padding: 0; border-radius: 50%; border: 0; background: rgba(255,255,255,.22); cursor: pointer; }
@@ -112,8 +112,8 @@ section { padding-block: 80px; }
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
 .prod { position: relative; display: flex; flex-direction: column; text-decoration: none; border-radius: var(--r); background: var(--bg2); border: 1px solid var(--line); box-shadow: var(--shadow); overflow: hidden; transition: transform .25s, border-color .25s; isolation: isolate; }
 .prod::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: var(--holo); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 2; }
-@media (hover: hover) and (pointer: fine) { .prod:hover, .prod:focus-visible { transform: translateY(-4px); } }
-@media (hover: hover) and (pointer: fine) { .prod:hover::before, .prod:focus-visible::before { opacity: 1; } }
+.prod:hover, .prod:focus-visible { transform: translateY(-4px); }
+.prod:hover::before, .prod:focus-visible::before { opacity: 1; }
 .prod .viz { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: radial-gradient(circle at 50% 55%, rgba(165,180,252,.14), transparent 65%), var(--screen); color: var(--on-screen); }
 .prod .viz .label { color: var(--on-screen-mute); }
 .prod .viz canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -129,8 +129,8 @@ section { padding-block: 80px; }
 .go .url { font: 500 13px var(--mono); color: var(--dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .go .visit { flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 17px; border-radius: 999px; background: var(--fg); color: #fff; font: 700 15px var(--body); }
 .go .visit svg { width: 16px; height: 16px; transition: transform .2s; }
-@media (hover: hover) and (pointer: fine) { .prod:hover .go .visit { background: var(--holo); color: #0B0C11; } }
-@media (hover: hover) and (pointer: fine) { .prod:hover .go .visit svg { transform: translate(2px, -2px); } }
+.prod:hover .go .visit { background: var(--holo); color: #0B0C11; }
+.prod:hover .go .visit svg { transform: translate(2px, -2px); }
 .add { display: grid; place-items: center; text-align: center; gap: 8px; padding: 32px; background: var(--surface); border: 1px dashed rgba(22,20,40,.2); border-radius: var(--r); color: var(--mute); min-height: 260px; }
 .add b { font: 700 22px var(--display); color: var(--fg); }
 
@@ -192,27 +192,14 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .stage { background: radial-gradient(circle at 50% 45%, rgba(165,180,252,.16), transparent 62%), var(--screen) !important; box-shadow: 0 30px 70px -30px rgba(40,30,90,.28), 0 0 0 1px var(--line) !important; }
 .prod .viz { background: radial-gradient(circle at 50% 55%, rgba(165,180,252,.14), transparent 65%), var(--screen) !important; border-bottom: 1px solid var(--line); }
 .stage .say, .stage .made a, .prod .viz .q { background: rgba(255,255,255,.9) !important; border: 1px solid rgba(22,20,40,.12) !important; color: var(--on-screen) !important; box-shadow: 0 6px 18px -10px rgba(40,30,90,.35); }
-@media (hover: hover) and (pointer: fine) { .stage .made a:hover { border-color: rgba(79,70,229,.45) !important; } }
+.stage .made a:hover { border-color: rgba(79,70,229,.45) !important; }
 .stage .say span::after { background: #4F46E5; }
 .stage .say span, .stage .made a, .prod .viz .q { color: var(--on-screen); }
-
-/* calmer page: one gradient (the main title), no decoration without a purpose */
-.tone { color: var(--mute); }
-.label { font: 600 13px var(--body); letter-spacing: .01em; text-transform: none; color: var(--mute); }
-.prod .viz .label { font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-/* motion that answers the hand: a press is felt at once, a strong ease-out everywhere */
-:root { --ease-out: cubic-bezier(.23, 1, .32, 1); }
-.btn, .chip, .prod, .stage .made a, #filters button { transition-property: transform, background-color, border-color, color, box-shadow; transition-duration: 160ms; transition-timing-function: var(--ease-out); }
-.btn:active, #filters button:active, .stage .made a:active { transform: scale(.97); }
-.prod:active { transform: scale(.99); }
-a, button { -webkit-tap-highlight-color: transparent; }
-button { touch-action: manipulation; }
-@media (prefers-reduced-motion: reduce) { .btn:active, #filters button:active, .prod:active { transform: none; } }
 </style>
 <link rel="stylesheet" href="mobile.css">
 </head>
 <body>
-
+<div class="aurora" aria-hidden="true"></div><div class="dots" aria-hidden="true"></div>
 <a class="skip" href="#products">Skip to the products</a>
 <header class="top">
   <div class="wrap bar">
@@ -236,11 +223,12 @@ button { touch-action: manipulation; }
     </div>
   </div>
 
+  <div class="ticker" aria-label="Examples of prompts"><div class="row" id="ticker"></div></div>
 
   <section id="products" aria-labelledby="ph">
     <div class="wrap">
       <div class="head">
-        <div><div class="label">Catalogue</div><h2 id="ph">One sentence in. <span class="tone">Something real out.</span></h2><p>Each card opens the product's own site, with its video, functions, limits and privacy.</p></div>
+        <div><div class="label">Catalogue</div><h2 id="ph">One sentence in. <span class="holo">Something real out.</span></h2><p>Each card opens the product's own site, with its video, functions, limits and privacy.</p></div>
         <div class="filters" id="filters" role="group" aria-label="Filter by market"></div>
       </div>
       <p class="mai-swipe-hint">Swipe to see more</p><div class="grid mai-swipe" id="grid"></div>
@@ -261,7 +249,7 @@ button { touch-action: manipulation; }
 
   <section id="model" aria-labelledby="mh">
     <div class="wrap">
-      <div class="head"><div><div class="label">Business model</div><h2 id="mh">The app is free. <span class="tone">The value is outside the screen.</span></h2></div></div>
+      <div class="head"><div><div class="label">Business model</div><h2 id="mh">The app is free. <span class="holo">The value is outside the screen.</span></h2></div></div>
       <div class="model">
         <div class="layer"><span class="label">Distribution</span><h3>AI ecosystems</h3><p>The app stores of OpenAI and Anthropic.</p></div>
         <div class="layer"><span class="label">Own capacity</span><h3>Agents and skills</h3><p>Specialised software, built and maintained by agents.</p></div>
@@ -277,7 +265,7 @@ button { touch-action: manipulation; }
     <div class="wrap contact">
       <div>
         <div class="label">Contact</div>
-        <h2 id="ch">Write to us. <span class="tone">A person answers.</span></h2>
+        <h2 id="ch">Write to us. <span class="holo">A person answers.</span></h2>
         <p class="clead">Access to a product, a partnership, a question about your data: one box for all of MoniliAI. We answer by email.</p>
         <div class="pnote" id="privacy-contact">
           <h3>How your message is handled</h3>
@@ -319,6 +307,9 @@ button { touch-action: manipulation; }
   pick.addEventListener('click', e => { const b = e.target.closest('button'); if (b) show(+b.dataset.i); });
   show(0);
 
+  /* ticker of real example prompts */
+  const items = P.map(p => `<span>“<b>${esc(p.prompt)}</b>”<em>${esc(p.name)}</em></span>`).join('');
+  document.getElementById('ticker').innerHTML = items + items;
 
   /* catalogue: same engine, same palette, one family */
   const grid = document.getElementById('grid'), fl = document.getElementById('filters');
